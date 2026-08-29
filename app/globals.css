@@ -84,8 +84,10 @@ input {
 
 /* Cabeçalho reproduzido a partir do site oficial da U Can. */
 .ucan-official-header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   pointer-events: none;
   background: transparent;
@@ -105,9 +107,37 @@ input {
   justify-content: space-between;
   gap: 0.8rem;
   pointer-events: auto;
-  background: transparent;
+  transform-origin: top;
+  background-color: transparent;
   border: 1px solid transparent;
   border-radius: 999px;
+  opacity: 0.98;
+  transform: scale(0.92);
+  box-shadow: 0 0 transparent;
+  transition:
+    background-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    -webkit-backdrop-filter 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    backdrop-filter 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ucan-official-header--hero .ucan-official-header__inner {
+  opacity: 0.98;
+  transform: scale(1);
+}
+
+.ucan-official-header--scrolled .ucan-official-header__inner {
+  opacity: 1;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  background-color: rgb(10 13 23 / 72%);
+  border-color: rgb(255 255 255 / 8%);
+  transform: scale(1);
+  box-shadow: 0 10px 40px rgb(0 0 0 / 25%), 0 0 20px rgb(139 92 246 / 8%);
 }
 
 .ucan-official-header__brand {
@@ -128,12 +158,27 @@ input {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
+  transition:
+    filter 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .ucan-official-header__symbol img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.ucan-official-header__brand:hover .ucan-official-header__symbol,
+.ucan-official-header__brand:focus-visible .ucan-official-header__symbol,
+.ucan-official-header--scrolled .ucan-official-header__symbol {
+  filter: drop-shadow(0 0 12px rgb(255 255 255 / 12%)) drop-shadow(0 0 18px rgb(0 255 178 / 14%));
+}
+
+.ucan-official-header__brand:hover .ucan-official-header__symbol,
+.ucan-official-header__brand:focus-visible .ucan-official-header__symbol {
+  transform: scale(1.03);
 }
 
 .ucan-official-header__copy {
