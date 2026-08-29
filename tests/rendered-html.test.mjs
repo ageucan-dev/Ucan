@@ -31,7 +31,7 @@ test("renders the landing page at its production subpath", async () => {
   assert.doesNotMatch(html, /Para clínicas estruturadas/);
   assert.match(html, /https:\/\/wa\.me\/5516996396345/);
   assert.match(html, /assets\/whatsapp\.png/);
-  assert.match(html, /class="hidden sm:inline">Quero uma análise/);
+  assert.match(html, /ucan-official-header__whatsapp-label">Quero uma análise/);
   assert.doesNotMatch(html, /Analisar o potencial da minha clínica/);
   assert.match(html, /id="diagnostico"/);
   assert.match(html, /Solicitar diagnóstico estratégico/);

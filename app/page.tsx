@@ -282,15 +282,15 @@ function LeadForm() {
 export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#0a1021] text-[#f8fafc]">
-      <header className="sticky top-0 z-40 border-b border-[#1d2942]/90 bg-[#0a1021]/90 backdrop-blur-xl">
-        <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8">
-          <a href="#topo" className="flex items-center gap-3" aria-label="U Can Marketing Digital">
-            <span className="grid size-11 place-items-center rounded-2xl bg-[#6d35d8] shadow-[0_8px_22px_rgba(109,53,216,0.3)]">
-              <img src={`${basePath}/assets/ucan-logo-white.png`} alt="" className="size-7 object-contain" />
+      <header className="ucan-official-header">
+        <div className="ucan-official-header__inner">
+          <a href="#topo" className="ucan-official-header__brand" aria-label="U Can Marketing Digital">
+            <span className="ucan-official-header__symbol">
+              <img src={`${basePath}/assets/ucan-logo-white.png`} alt="" />
             </span>
-            <span>
-              <span className="block text-lg font-black leading-none tracking-tight">U CAN</span>
-              <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.18em] text-[#9da8bd]">Marketing Digital</span>
+            <span className="ucan-official-header__copy">
+              <span className="ucan-official-header__name">U CAN</span>
+              <span className="ucan-official-header__subtitle">Marketing Digital</span>
             </span>
           </a>
 
@@ -300,10 +300,10 @@ export default function Home() {
             rel="noopener noreferrer"
             aria-label="Conversar com a U Can no WhatsApp"
             onClick={() => pushEvent("cta_click", { cta_location: "header_whatsapp" })}
-            className="inline-flex h-14 w-14 shrink-0 items-center justify-center gap-2 rounded-full bg-[#25D366] p-0 text-sm font-bold text-white shadow-[0_8px_24px_rgba(37,211,102,0.28)] transition hover:-translate-y-0.5 hover:bg-[#20bd5a] sm:w-auto sm:px-5"
+            className="ucan-official-header__whatsapp"
           >
-            <img src={`${basePath}/assets/whatsapp.png`} alt="" className="size-10 object-contain" />
-            <span className="hidden sm:inline">Quero uma análise</span>
+            <img src={`${basePath}/assets/whatsapp.png`} alt="" />
+            <span className="ucan-official-header__whatsapp-label">Quero uma análise</span>
           </a>
         </div>
       </header>
