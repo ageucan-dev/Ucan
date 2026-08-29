@@ -28,7 +28,27 @@ export default function RootLayout({
         />
         <script src="/estetica-saude/form-config.js" defer />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (() => {
+                const syncHeader = () => {
+                  const header = document.querySelector('.ucan-official-header');
+                  if (!header) return;
+                  const scrolled = window.scrollY > 40;
+                  header.classList.toggle('ucan-official-header--scrolled', scrolled);
+                  header.classList.toggle('ucan-official-header--hero', !scrolled);
+                };
+
+                syncHeader();
+                window.addEventListener('scroll', syncHeader, { passive: true });
+              })();
+            `,
+          }}
+        />
+      </body>
     </html>
   );
 }
