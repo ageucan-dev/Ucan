@@ -28,6 +28,9 @@ test("renders the landing page at its production subpath", async () => {
   );
   const html = await response.text();
   assert.match(html, /Querendo aumentar o faturamento da sua empresa de forma/);
+  assert.doesNotMatch(html, /Para clínicas estruturadas/);
+  assert.match(html, /https:\/\/wa\.me\/5516996396345/);
+  assert.match(html, /assets\/whatsapp\.png/);
   assert.match(html, /id="diagnostico"/);
   assert.match(html, /Solicitar diagnóstico estratégico/);
 });

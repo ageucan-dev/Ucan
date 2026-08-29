@@ -8,7 +8,6 @@ import {
   CheckCircle2,
   LineChart,
   ShieldCheck,
-  Sparkles,
   Target,
 } from "lucide-react";
 
@@ -295,7 +294,15 @@ export default function Home() {
             </span>
           </a>
 
-          <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "header" })} className="inline-flex h-11 items-center justify-center rounded-full bg-[#21122f] px-5 text-sm font-bold text-white transition hover:bg-[#362047]">
+          <a
+            href="https://wa.me/5516996396345"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Conversar com a U Can no WhatsApp"
+            onClick={() => pushEvent("cta_click", { cta_location: "header_whatsapp" })}
+            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 text-sm font-bold text-white shadow-[0_8px_22px_rgba(37,211,102,0.24)] transition hover:-translate-y-0.5 hover:bg-[#20bd5a]"
+          >
+            <img src={`${basePath}/assets/whatsapp.png`} alt="" className="size-5 object-contain" />
             Quero uma análise
           </a>
         </div>
@@ -305,12 +312,7 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_16%_0%,rgba(139,92,246,0.16),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(205,184,255,0.22),transparent_30%)]" />
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1.04fr_.96fr] lg:items-start lg:gap-16 lg:py-24">
           <div className="pt-2 lg:pt-8">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#d8c9ef] bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#6532ca] shadow-sm">
-              <Sparkles className="size-4" />
-              Para clínicas estruturadas
-            </div>
-
-            <h1 className="mt-7 max-w-3xl text-[2.75rem] font-black leading-[1.02] tracking-[-0.045em] text-[#1e102c] sm:text-6xl lg:text-[4.35rem]">
+            <h1 className="max-w-3xl text-[2.75rem] font-black leading-[1.02] tracking-[-0.045em] text-[#1e102c] sm:text-6xl lg:text-[4.35rem]">
               Querendo aumentar o faturamento da sua empresa de forma <span className="text-[#6d35d8]">saudável?</span>
             </h1>
 
