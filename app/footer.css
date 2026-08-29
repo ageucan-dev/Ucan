@@ -1,0 +1,108 @@
+.ucan-original-footer {
+  background: #050b16;
+  border-top: 1px solid #ffffff14;
+  padding: 72px 24px 28px;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+.ucan-original-footer__inner {
+  width: 100%;
+  max-width: 1180px;
+  margin-inline: auto;
+}
+
+.ucan-original-footer__columns {
+  display: grid;
+  gap: 2.75rem;
+}
+
+.ucan-original-footer__brand {
+  display: grid;
+  gap: 1.1rem;
+  max-width: 390px;
+}
+
+.ucan-original-footer__brand a {
+  width: fit-content;
+}
+
+.ucan-original-footer__logo {
+  display: block;
+  width: auto;
+  height: 56px;
+  object-fit: contain;
+}
+
+.ucan-original-footer__brand p,
+.ucan-original-footer__bottom p,
+.ucan-original-footer__contact-item {
+  color: #94a3b8;
+}
+
+.ucan-original-footer__brand p {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.72;
+}
+
+.ucan-original-footer__column {
+  display: grid;
+  align-content: start;
+  gap: 0.82rem;
+}
+
+.ucan-original-footer__column h2 {
+  margin: 0 0 0.2rem;
+  color: #ffffff;
+  font-family: "Sora", "Inter", Arial, Helvetica, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.ucan-original-footer__column a,
+.ucan-original-footer__contact-item {
+  width: fit-content;
+  color: #cbd5e1;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 0.18s, transform 0.18s;
+}
+
+.ucan-original-footer__column a:hover,
+.ucan-original-footer__column a:focus-visible,
+.ucan-original-footer__contact-item:hover,
+.ucan-original-footer__contact-item:focus-visible {
+  color: #00ffb2;
+  transform: translateX(3px);
+}
+
+.ucan-original-footer__contact-item {
+  cursor: pointer;
+}
+
+.ucan-original-footer__bottom {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 3.75rem;
+  padding-top: 1.45rem;
+  border-top: 1px solid #ffffff14;
+}
+
+.ucan-original-footer__bottom p {
+  margin: 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+@media (min-width: 768px) {
+  .ucan-original-footer__columns {
+    grid-template-columns: minmax(0, 1fr) minmax(150px, 0.35fr) minmax(150px, 0.35fr);
+    align-items: start;
+  }
+
+  .ucan-original-footer__bottom {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+}
