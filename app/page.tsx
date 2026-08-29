@@ -311,7 +311,7 @@ export default function Home() {
             </div>
 
             <h1 className="mt-7 max-w-3xl text-[2.75rem] font-black leading-[1.02] tracking-[-0.045em] text-[#1e102c] sm:text-6xl lg:text-[4.35rem]">
-              Sua clínica já tem audiência. Agora precisa transformar atenção em <span className="text-[#6d35d8]">crescimento previsível.</span>
+              Querendo aumentar o faturamento da sua empresa de forma <span className="text-[#6d35d8]">saudável?</span>
             </h1>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-[#62566c] sm:text-xl">
