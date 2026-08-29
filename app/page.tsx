@@ -384,7 +384,7 @@ export default function Home() {
             </h1>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-[#a8b1c4] sm:text-xl">
-              A U Can conecta anúncios, página, atendimento, agendamento, vendas e mensuração para sua clínica entender o que gera resultado — e onde o faturamento está escapando.
+              A U Can conecta anúncios, página, atendimento, agendamento, vendas e mensuração para sua clínica entender o que gera resultado e onde o faturamento está escapando.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
