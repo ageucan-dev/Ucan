@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import "./globals.css";
+import "./footer.css";
 
 export const metadata: Metadata = {
   title: "Marketing para Clínicas | U Can Marketing Digital",
