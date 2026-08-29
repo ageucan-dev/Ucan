@@ -94,20 +94,20 @@ function FormSelect({
 }) {
   return (
     <div className="space-y-2">
-      <label htmlFor={id} className="text-sm font-semibold text-[#29153d]">
+      <label htmlFor={id} className="text-sm font-semibold text-[#e8edf7]">
         {label}
       </label>
       <input type="hidden" name={id} value={value} />
       <Select value={value} onValueChange={onValueChange}>
         <SelectTrigger
           id={id}
-          className="h-12 w-full rounded-xl border-[#ded5eb] bg-white px-4 text-left text-[15px] shadow-none focus:ring-[#6d35d8]/20"
+          className="h-12 w-full rounded-xl border-[#2c3855] bg-[#0d1426] px-4 text-left text-[15px] text-[#f8fafc] shadow-none focus:ring-[#00eca6]/30"
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
-        <SelectContent className="border-[#ded5eb] bg-white">
+        <SelectContent className="border-[#2c3855] bg-[#11182c] text-[#f8fafc]">
           {options.map((option) => (
-            <SelectItem key={option} value={option} className="py-2.5">
+            <SelectItem key={option} value={option} className="py-2.5 focus:bg-[#19233b] focus:text-[#00eca6]">
               {option}
             </SelectItem>
           ))}
@@ -196,16 +196,16 @@ function LeadForm() {
   if (status === "success") {
     return (
       <div className="flex min-h-[520px] flex-col items-center justify-center text-center" aria-live="polite">
-        <div className="mb-6 grid size-16 place-items-center rounded-full bg-[#e9ddff] text-[#5d24ca]">
+        <div className="mb-6 grid size-16 place-items-center rounded-full bg-[#0d3b34] text-[#00eca6]">
           <CheckCircle2 className="size-8" />
         </div>
-        <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#6d35d8]">Formulário enviado</p>
-        <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#20112f]">Agora vamos analisar sua clínica.</h2>
-        <p className="mt-4 max-w-md text-base leading-7 text-[#685d72]">{message}</p>
+        <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#00eca6]">Formulário enviado</p>
+        <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#f8fafc]">Agora vamos analisar sua clínica.</h2>
+        <p className="mt-4 max-w-md text-base leading-7 text-[#a8b1c4]">{message}</p>
         <Button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-7 h-11 rounded-full bg-[#21122f] px-6 text-white hover:bg-[#352047]"
+          className="mt-7 h-11 rounded-full bg-[#00eca6] px-6 font-bold text-[#06121a] hover:bg-[#00d999]"
         >
           Enviar outro contato
         </Button>
@@ -216,35 +216,35 @@ function LeadForm() {
   return (
     <form id="diagnostico" onSubmit={handleSubmit} onFocus={markStarted} className="scroll-mt-24">
       <div className="mb-7">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#f0e8ff] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#6230c8]">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#102c2c] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#00eca6]">
           <ShieldCheck className="size-4" />
           Análise de perfil
         </div>
-        <h2 className="text-3xl font-bold tracking-tight text-[#20112f]">Vamos entender o momento da sua clínica.</h2>
-        <p className="mt-3 text-sm leading-6 text-[#6d6275]">
+        <h2 className="text-3xl font-bold tracking-tight text-[#f8fafc]">Vamos entender o momento da sua clínica.</h2>
+        <p className="mt-3 text-sm leading-6 text-[#a8b1c4]">
           Leva menos de 2 minutos. As informações ajudam a equipe a preparar um diagnóstico mais objetivo.
         </p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <label htmlFor="nome" className="text-sm font-semibold text-[#29153d]">Nome</label>
-          <Input id="nome" name="nome" required autoComplete="name" placeholder="Como podemos chamar você?" className="h-12 rounded-xl border-[#ded5eb] bg-white px-4 text-[15px] shadow-none focus-visible:ring-[#6d35d8]/20" />
+          <label htmlFor="nome" className="text-sm font-semibold text-[#e8edf7]">Nome</label>
+          <Input id="nome" name="nome" required autoComplete="name" placeholder="Como podemos chamar você?" className="h-12 rounded-xl border-[#2c3855] bg-[#0d1426] px-4 text-[15px] text-[#f8fafc] shadow-none placeholder:text-[#6f7b94] focus-visible:ring-[#00eca6]/30" />
         </div>
         <div className="space-y-2">
-          <label htmlFor="telefone" className="text-sm font-semibold text-[#29153d]">Telefone</label>
-          <Input id="telefone" name="telefone" required inputMode="tel" autoComplete="tel" value={phone} onChange={(event) => setPhone(formatPhone(event.target.value))} placeholder="(16) 99999-9999" className="h-12 rounded-xl border-[#ded5eb] bg-white px-4 text-[15px] shadow-none focus-visible:ring-[#6d35d8]/20" />
+          <label htmlFor="telefone" className="text-sm font-semibold text-[#e8edf7]">Telefone</label>
+          <Input id="telefone" name="telefone" required inputMode="tel" autoComplete="tel" value={phone} onChange={(event) => setPhone(formatPhone(event.target.value))} placeholder="(16) 99999-9999" className="h-12 rounded-xl border-[#2c3855] bg-[#0d1426] px-4 text-[15px] text-[#f8fafc] shadow-none placeholder:text-[#6f7b94] focus-visible:ring-[#00eca6]/30" />
         </div>
       </div>
 
       <div className="mt-4 space-y-2">
-        <label htmlFor="email" className="text-sm font-semibold text-[#29153d]">E-mail</label>
-        <Input id="email" name="email" type="email" required autoComplete="email" placeholder="voce@clinica.com.br" className="h-12 rounded-xl border-[#ded5eb] bg-white px-4 text-[15px] shadow-none focus-visible:ring-[#6d35d8]/20" />
+        <label htmlFor="email" className="text-sm font-semibold text-[#e8edf7]">E-mail</label>
+        <Input id="email" name="email" type="email" required autoComplete="email" placeholder="voce@clinica.com.br" className="h-12 rounded-xl border-[#2c3855] bg-[#0d1426] px-4 text-[15px] text-[#f8fafc] shadow-none placeholder:text-[#6f7b94] focus-visible:ring-[#00eca6]/30" />
       </div>
 
       <div className="mt-4 space-y-2">
-        <label htmlFor="empresa" className="text-sm font-semibold text-[#29153d]">Nome da clínica ou empresa</label>
-        <Input id="empresa" name="empresa" required autoComplete="organization" placeholder="Nome da sua empresa" className="h-12 rounded-xl border-[#ded5eb] bg-white px-4 text-[15px] shadow-none focus-visible:ring-[#6d35d8]/20" />
+        <label htmlFor="empresa" className="text-sm font-semibold text-[#e8edf7]">Nome da clínica ou empresa</label>
+        <Input id="empresa" name="empresa" required autoComplete="organization" placeholder="Nome da sua empresa" className="h-12 rounded-xl border-[#2c3855] bg-[#0d1426] px-4 text-[15px] text-[#f8fafc] shadow-none placeholder:text-[#6f7b94] focus-visible:ring-[#00eca6]/30" />
       </div>
 
       <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -257,40 +257,40 @@ function LeadForm() {
         <FormSelect id="investe_publicidade" label="Investe em publicidade?" placeholder="Selecione uma opção" value={advertising} options={advertisingOptions} onValueChange={setAdvertising} />
       </div>
 
-      <div className="mt-5 flex items-start gap-3 rounded-xl bg-[#f7f3fc] p-4">
-        <Checkbox id="consentimento" checked={consent} onCheckedChange={(value) => setConsent(value === true)} className="mt-0.5 border-[#8a76a1] data-[state=checked]:border-[#6d35d8] data-[state=checked]:bg-[#6d35d8]" />
-        <label htmlFor="consentimento" className="cursor-pointer text-xs leading-5 text-[#685d72]">
+      <div className="mt-5 flex items-start gap-3 rounded-xl bg-[#0d1426] p-4">
+        <Checkbox id="consentimento" checked={consent} onCheckedChange={(value) => setConsent(value === true)} className="mt-0.5 border-[#6f7b94] data-[state=checked]:border-[#00eca6] data-[state=checked]:bg-[#00eca6] data-[state=checked]:text-[#06121a]" />
+        <label htmlFor="consentimento" className="cursor-pointer text-xs leading-5 text-[#9eabc1]">
           Autorizo a U Can Marketing Digital a entrar em contato para analisar minha solicitação. Meus dados serão utilizados somente para atendimento comercial.
         </label>
       </div>
 
       {message && (
-        <p className={`mt-4 rounded-xl px-4 py-3 text-sm ${status === "error" ? "bg-red-50 text-red-700" : "bg-[#f0e8ff] text-[#5d24ca]"}`} aria-live="polite">
+        <p className={`mt-4 rounded-xl px-4 py-3 text-sm ${status === "error" ? "bg-[#3a151c] text-[#ffb4c0]" : "bg-[#102c2c] text-[#00eca6]"}`} aria-live="polite">
           {message}
         </p>
       )}
 
-      <Button type="submit" disabled={status === "submitting"} className="mt-5 h-14 w-full rounded-xl bg-[#6d35d8] text-base font-bold text-white shadow-[0_14px_34px_rgba(109,53,216,0.26)] transition hover:-translate-y-0.5 hover:bg-[#5d27c6] disabled:translate-y-0">
+      <Button type="submit" disabled={status === "submitting"} className="mt-5 h-14 w-full rounded-xl bg-[#00eca6] text-base font-bold text-[#06121a] shadow-[0_14px_34px_rgba(0,236,166,0.2)] transition hover:-translate-y-0.5 hover:bg-[#00d999] disabled:translate-y-0">
         {status === "submitting" ? "Enviando..." : "Solicitar diagnóstico estratégico"}
         {status !== "submitting" && <ArrowRight className="ml-2 size-5" />}
       </Button>
-      <p className="mt-3 text-center text-xs text-[#7a7082]">A solicitação passa por uma análise antes do contato.</p>
+      <p className="mt-3 text-center text-xs text-[#8995ab]">A solicitação passa por uma análise antes do contato.</p>
     </form>
   );
 }
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfaff] text-[#20112f]">
-      <header className="sticky top-0 z-40 border-b border-[#e9e1f1]/80 bg-white/90 backdrop-blur-xl">
+    <main className="min-h-screen overflow-hidden bg-[#0a1021] text-[#f8fafc]">
+      <header className="sticky top-0 z-40 border-b border-[#1d2942]/90 bg-[#0a1021]/90 backdrop-blur-xl">
         <div className="mx-auto flex h-[76px] max-w-7xl items-center justify-between px-5 sm:px-8">
           <a href="#topo" className="flex items-center gap-3" aria-label="U Can Marketing Digital">
-            <span className="grid size-11 place-items-center rounded-2xl bg-[#6d35d8] shadow-[0_8px_22px_rgba(109,53,216,0.25)]">
+            <span className="grid size-11 place-items-center rounded-2xl bg-[#6d35d8] shadow-[0_8px_22px_rgba(109,53,216,0.3)]">
               <img src={`${basePath}/assets/ucan-logo-white.png`} alt="" className="size-7 object-contain" />
             </span>
             <span>
               <span className="block text-lg font-black leading-none tracking-tight">U CAN</span>
-              <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.18em] text-[#776a81]">Marketing Digital</span>
+              <span className="mt-1 block text-[10px] font-bold uppercase tracking-[0.18em] text-[#9da8bd]">Marketing Digital</span>
             </span>
           </a>
 
@@ -300,36 +300,31 @@ export default function Home() {
             rel="noopener noreferrer"
             aria-label="Conversar com a U Can no WhatsApp"
             onClick={() => pushEvent("cta_click", { cta_location: "header_whatsapp" })}
-            className="inline-flex h-11 items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 text-sm font-bold text-white shadow-[0_8px_22px_rgba(37,211,102,0.24)] transition hover:-translate-y-0.5 hover:bg-[#20bd5a]"
+            className="inline-flex h-14 w-14 shrink-0 items-center justify-center gap-2 rounded-full bg-[#25D366] p-0 text-sm font-bold text-white shadow-[0_8px_24px_rgba(37,211,102,0.28)] transition hover:-translate-y-0.5 hover:bg-[#20bd5a] sm:w-auto sm:px-5"
           >
-            <img src={`${basePath}/assets/whatsapp.png`} alt="" className="size-5 object-contain" />
-            Quero uma análise
+            <img src={`${basePath}/assets/whatsapp.png`} alt="" className="size-10 object-contain" />
+            <span className="hidden sm:inline">Quero uma análise</span>
           </a>
         </div>
       </header>
 
       <section id="topo" className="relative scroll-mt-24">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_16%_0%,rgba(139,92,246,0.16),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(205,184,255,0.22),transparent_30%)]" />
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_16%_0%,rgba(109,53,216,0.28),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(0,236,166,0.12),transparent_31%)]" />
         <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1.04fr_.96fr] lg:items-start lg:gap-16 lg:py-24">
           <div className="pt-2 lg:pt-8">
-            <h1 className="max-w-3xl text-[2.75rem] font-black leading-[1.02] tracking-[-0.045em] text-[#1e102c] sm:text-6xl lg:text-[4.35rem]">
-              Querendo aumentar o faturamento da sua empresa de forma <span className="text-[#6d35d8]">saudável?</span>
+            <h1 className="max-w-3xl text-[2.75rem] font-black leading-[1.02] tracking-[-0.045em] text-[#f8fafc] sm:text-6xl lg:text-[4.35rem]">
+              Querendo aumentar o faturamento da sua empresa de forma <span className="text-[#00eca6]">saudável?</span>
             </h1>
 
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#62566c] sm:text-xl">
+            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#a8b1c4] sm:text-xl">
               A U Can conecta anúncios, página, atendimento, agendamento, vendas e mensuração para sua clínica entender o que gera resultado — e onde o faturamento está escapando.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
               {["Estética", "Odontologia", "Massoterapia"].map((item) => (
-                <span key={item} className="rounded-full border border-[#ded2ed] bg-white px-4 py-2 text-sm font-bold text-[#4c3a5d] shadow-sm">{item}</span>
+                <span key={item} className="rounded-full border border-[#2b3652] bg-[#11182c] px-4 py-2 text-sm font-bold text-[#d9e0ee] shadow-[0_8px_20px_rgba(0,0,0,0.18)]">{item}</span>
               ))}
             </div>
-
-            <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "hero" })} className="mt-9 inline-flex h-14 items-center justify-center rounded-full bg-[#6d35d8] px-7 text-base font-bold text-white shadow-[0_16px_36px_rgba(109,53,216,0.28)] transition hover:-translate-y-0.5 hover:bg-[#5d27c6]">
-              Analisar o potencial da minha clínica
-              <ArrowRight className="ml-2 size-5" />
-            </a>
 
             <div className="mt-9 grid max-w-2xl gap-3 sm:grid-cols-3">
               {[
@@ -339,10 +334,10 @@ export default function Home() {
               ].map(([Icon, title, text]) => {
                 const IconComponent = Icon as typeof Target;
                 return (
-                  <div key={String(title)} className="rounded-2xl border border-white bg-white/75 p-4 shadow-[0_10px_30px_rgba(42,21,65,0.06)] backdrop-blur">
-                    <IconComponent className="size-5 text-[#6d35d8]" />
-                    <p className="mt-3 text-sm font-bold text-[#2a1838]">{String(title)}</p>
-                    <p className="mt-1 text-xs leading-5 text-[#766b7d]">{String(text)}</p>
+                  <div key={String(title)} className="rounded-2xl border border-[#26314b] bg-[#11182c]/85 p-4 shadow-[0_12px_34px_rgba(0,0,0,0.22)] backdrop-blur">
+                    <IconComponent className="size-5 text-[#00eca6]" />
+                    <p className="mt-3 text-sm font-bold text-[#f8fafc]">{String(title)}</p>
+                    <p className="mt-1 text-xs leading-5 text-[#9da8bd]">{String(text)}</p>
                   </div>
                 );
               })}
@@ -350,19 +345,19 @@ export default function Home() {
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-5 -z-10 rounded-[2.5rem] bg-gradient-to-br from-[#decfff] via-transparent to-[#f1eaff] blur-2xl" />
-            <div className="rounded-[2rem] border border-[#e3d9ed] bg-white p-6 shadow-[0_30px_80px_rgba(48,26,70,0.13)] sm:p-8">
+            <div className="absolute -inset-5 -z-10 rounded-[2.5rem] bg-gradient-to-br from-[#6d35d8]/35 via-transparent to-[#00eca6]/20 blur-2xl" />
+            <div className="rounded-[2rem] border border-[#26314b] bg-[#11182c] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:p-8">
               <LeadForm />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-y border-[#ece5f2] bg-white">
-        <div className="mx-auto grid max-w-7xl divide-y divide-[#ece5f2] px-5 sm:px-8 md:grid-cols-4 md:divide-x md:divide-y-0">
+      <section className="border-y border-[#1f2a43] bg-[#0d1426]">
+        <div className="mx-auto grid max-w-7xl divide-y divide-[#1f2a43] px-5 sm:px-8 md:grid-cols-4 md:divide-x md:divide-y-0">
           {["Oferta clara", "Captação qualificada", "Processo comercial", "Mensuração completa"].map((item) => (
-            <div key={item} className="flex items-center justify-center gap-2 px-5 py-5 text-center text-sm font-bold text-[#44364e]">
-              <Check className="size-4 text-[#6d35d8]" />
+            <div key={item} className="flex items-center justify-center gap-2 px-5 py-5 text-center text-sm font-bold text-[#c8d0df]">
+              <Check className="size-4 text-[#00eca6]" />
               {item}
             </div>
           ))}

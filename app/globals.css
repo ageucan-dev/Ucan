@@ -7,24 +7,24 @@
 }
 
 :root {
-  --background: #fbfaff;
-  --foreground: #20112f;
-  --card: #ffffff;
-  --card-foreground: #20112f;
-  --popover: #ffffff;
-  --popover-foreground: #20112f;
-  --primary: #6d35d8;
-  --primary-foreground: #ffffff;
-  --secondary: #f3edfb;
-  --secondary-foreground: #281637;
-  --muted: #f5f1f8;
-  --muted-foreground: #73677b;
-  --accent: #eee5fb;
-  --accent-foreground: #4f249e;
-  --destructive: #c91c34;
-  --border: #e4dbea;
-  --input: #ded5eb;
-  --ring: #6d35d8;
+  --background: #0a1021;
+  --foreground: #f8fafc;
+  --card: #11182c;
+  --card-foreground: #f8fafc;
+  --popover: #11182c;
+  --popover-foreground: #f8fafc;
+  --primary: #00eca6;
+  --primary-foreground: #06121a;
+  --secondary: #171f35;
+  --secondary-foreground: #e9eef8;
+  --muted: #151d31;
+  --muted-foreground: #9da8bd;
+  --accent: #241d45;
+  --accent-foreground: #ded4ff;
+  --destructive: #ff667d;
+  --border: #26324d;
+  --input: #2c3855;
+  --ring: #00eca6;
   --radius: 0.75rem;
 }
 
@@ -72,8 +72,8 @@ body {
 }
 
 ::selection {
-  background: #d8c6f7;
-  color: #21122f;
+  background: #00eca6;
+  color: #06121a;
 }
 
 a,
