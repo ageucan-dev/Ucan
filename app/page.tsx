@@ -6,13 +6,10 @@ import {
   BarChart3,
   Check,
   CheckCircle2,
-  CircleDollarSign,
   LineChart,
-  MessageCircleMore,
   ShieldCheck,
   Sparkles,
   Target,
-  UsersRound,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -298,12 +295,6 @@ export default function Home() {
             </span>
           </a>
 
-          <nav className="hidden items-center gap-7 text-sm font-semibold text-[#574b61] md:flex" aria-label="Navegação principal">
-            <a href="#problema" className="transition hover:text-[#6d35d8]">O problema</a>
-            <a href="#metodo" className="transition hover:text-[#6d35d8]">Como funciona</a>
-            <a href="#perfil" className="transition hover:text-[#6d35d8]">Para quem é</a>
-          </nav>
-
           <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "header" })} className="inline-flex h-11 items-center justify-center rounded-full bg-[#21122f] px-5 text-sm font-bold text-white transition hover:bg-[#362047]">
             Quero uma análise
           </a>
@@ -376,151 +367,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="problema" className="scroll-mt-24 bg-[#21122f] py-20 text-white sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="grid gap-10 lg:grid-cols-[.86fr_1.14fr] lg:gap-20">
-            <div>
-              <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#c8a9ff]">A real causa</p>
-              <h2 className="mt-4 text-4xl font-black leading-tight tracking-[-0.035em] sm:text-5xl">O problema nem sempre é gerar mais leads.</h2>
-              <p className="mt-6 text-lg leading-8 text-[#cabfd2]">É transformar interesse em atendimento, comparecimento, fechamento e receita — sem perder visibilidade entre uma etapa e outra.</p>
-            </div>
-
-            <div className="grid gap-4 sm:grid-cols-3">
-              {[
-                [UsersRound, "Audiência sem agenda", "A clínica cresce nas redes, mas os horários e o faturamento continuam oscilando."],
-                [MessageCircleMore, "Lead sem acompanhamento", "Contatos chegam, demoram a receber resposta e se perdem por falta de processo."],
-                [CircleDollarSign, "Investimento sem retorno claro", "A verba é aplicada, mas ninguém sabe quanto cada real retorna em vendas."],
-              ].map(([Icon, title, text]) => {
-                const IconComponent = Icon as typeof Target;
-                return (
-                  <article key={String(title)} className="rounded-3xl border border-white/10 bg-white/[0.07] p-6">
-                    <span className="grid size-11 place-items-center rounded-2xl bg-[#7641da] text-white"><IconComponent className="size-5" /></span>
-                    <h3 className="mt-5 text-lg font-bold">{String(title)}</h3>
-                    <p className="mt-3 text-sm leading-6 text-[#cbbfd3]">{String(text)}</p>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="metodo" className="scroll-mt-24 bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="mx-auto max-w-3xl text-center">
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#6d35d8]">Método U Can</p>
-            <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] text-[#21122f] sm:text-5xl">Um sistema completo, não apenas anúncios.</h2>
-            <p className="mt-5 text-lg leading-8 text-[#6c6074]">Cada etapa precisa conversar com a próxima. É isso que permite identificar gargalos, corrigir desperdícios e tomar decisões com mais segurança.</p>
-          </div>
-
-          <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-            {[
-              ["01", "Oferta", "Clareza sobre o que será vendido e para quem."],
-              ["02", "Aquisição", "Criativos, anúncios e página para gerar oportunidades."],
-              ["03", "Atendimento", "Velocidade, script e qualificação dos contatos."],
-              ["04", "Venda", "Agendamento, comparecimento e acompanhamento."],
-              ["05", "Dados", "Mensuração do investimento até o faturamento."],
-            ].map(([number, title, text]) => (
-              <article key={number} className="group rounded-3xl border border-[#e7deef] bg-[#fcfaff] p-6 transition hover:-translate-y-1 hover:border-[#c9b4e8] hover:shadow-[0_18px_40px_rgba(76,42,108,0.09)]">
-                <span className="text-xs font-black tracking-[0.18em] text-[#8b5ee3]">{number}</span>
-                <h3 className="mt-8 text-xl font-bold text-[#281637]">{title}</h3>
-                <p className="mt-3 text-sm leading-6 text-[#726779]">{text}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f3edfb] py-20 sm:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-[1.08fr_.92fr] lg:gap-16">
-          <div className="relative overflow-hidden rounded-[2rem] shadow-[0_28px_60px_rgba(51,28,72,0.18)]">
-            <img src={`${basePath}/assets/clinic-growth-performance-hero.png`} alt="Gestores de uma clínica analisando o desempenho do negócio" className="aspect-[4/3] h-full w-full object-cover" />
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#160c20]/90 to-transparent p-6 pt-24 text-white sm:p-8 sm:pt-28">
-              <p className="text-sm font-bold uppercase tracking-[0.16em] text-[#d9c4ff]">Decisões orientadas por dados</p>
-              <p className="mt-2 max-w-lg text-xl font-bold leading-7">Marketing, atendimento e comercial olhando para o mesmo resultado.</p>
-            </div>
-          </div>
-
-          <div>
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#6d35d8]">Crescer com controle</p>
-            <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] text-[#21122f] sm:text-5xl">Saiba o que acontece depois que o lead chega.</h2>
-            <p className="mt-6 text-lg leading-8 text-[#685c70]">O anúncio é apenas o começo. A U Can acompanha o caminho até o agendamento e a venda para encontrar o verdadeiro gargalo da operação.</p>
-            <ul className="mt-7 space-y-4">
-              {[
-                "Entender quanto cada canal gera em oportunidades",
-                "Identificar perdas no atendimento e no follow-up",
-                "Medir agendamentos, comparecimentos e vendas",
-                "Tomar decisões com base no funil completo",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm font-semibold leading-6 text-[#43364c]">
-                  <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-[#6d35d8] text-white"><Check className="size-3" /></span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section id="perfil" className="scroll-mt-24 bg-white py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
-          <div className="grid gap-6 lg:grid-cols-2">
-            <article className="rounded-[2rem] border border-[#dfd2ee] bg-[#f8f4ff] p-7 sm:p-10">
-              <div className="grid size-12 place-items-center rounded-2xl bg-[#6d35d8] text-white"><CheckCircle2 className="size-6" /></div>
-              <h2 className="mt-6 text-3xl font-black tracking-tight text-[#241332]">Esta análise é para clínicas que...</h2>
-              <ul className="mt-7 space-y-4">
-                {[
-                  "Já possuem operação, pacientes e faturamento",
-                  "Têm capacidade para atender novos pacientes",
-                  "Já construíram audiência ou presença digital",
-                  "Querem investir com mais mensuração e previsibilidade",
-                  "Possuem um decisor envolvido no crescimento",
-                ].map((item) => (
-                  <li key={item} className="flex gap-3 text-sm font-semibold leading-6 text-[#4c3e56]"><Check className="mt-1 size-4 shrink-0 text-[#6d35d8]" />{item}</li>
-                ))}
-              </ul>
-            </article>
-
-            <article className="rounded-[2rem] bg-[#21122f] p-7 text-white sm:p-10">
-              <div className="grid size-12 place-items-center rounded-2xl bg-white/10 text-[#d8bfff]"><Target className="size-6" /></div>
-              <h2 className="mt-6 text-3xl font-black tracking-tight">Antes de falar em crescimento...</h2>
-              <p className="mt-5 text-base leading-7 text-[#cbbfd3]">Não vamos prometer um número pronto. Primeiro analisamos estrutura, oferta, capacidade, investimento, atendimento e histórico da clínica.</p>
-              <p className="mt-5 text-base leading-7 text-[#cbbfd3]">A partir disso, identificamos se existe aderência e quais pontos precisam ser corrigidos para construir um processo mais previsível.</p>
-              <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "profile" })} className="mt-8 inline-flex h-12 items-center justify-center rounded-full bg-white px-6 text-sm font-bold text-[#21122f] transition hover:bg-[#eee5f8]">
-                Quero solicitar uma análise<ArrowRight className="ml-2 size-4" />
-              </a>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-gradient-to-br from-[#6d35d8] to-[#4d1fa5] py-16 text-white sm:py-20">
-        <div className="mx-auto flex max-w-5xl flex-col items-center px-5 text-center sm:px-8">
-          <p className="text-sm font-bold uppercase tracking-[0.2em] text-[#e0d0ff]">Próximo passo</p>
-          <h2 className="mt-4 text-4xl font-black tracking-[-0.04em] sm:text-5xl">Sua clínica está pronta para crescer com mais previsibilidade?</h2>
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-[#eadfff]">Preencha o formulário e permita que a equipe da U Can entenda o momento atual do seu negócio.</p>
-          <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "final" })} className="mt-8 inline-flex h-14 items-center justify-center rounded-full bg-white px-7 text-base font-bold text-[#5022a8] shadow-xl transition hover:-translate-y-0.5 hover:bg-[#f5efff]">
-            Solicitar diagnóstico estratégico<ArrowRight className="ml-2 size-5" />
-          </a>
-        </div>
-      </section>
-
-      <footer className="bg-[#150b1e] py-9 text-white">
-        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-5 text-center sm:px-8 md:flex-row md:text-left">
-          <div className="flex items-center gap-3">
-            <span className="grid size-10 place-items-center rounded-xl bg-[#6d35d8]"><img src={`${basePath}/assets/ucan-logo-white.png`} alt="" className="size-6 object-contain" /></span>
-            <div>
-              <p className="font-black">U CAN Marketing Digital</p>
-              <p className="mt-1 text-xs text-[#ad9eb6]">Aquisição, atendimento, vendas e mensuração.</p>
-            </div>
-          </div>
-          <p className="text-xs leading-5 text-[#9f91a8]">© 2026 U Can Marketing Digital. Todos os direitos reservados.</p>
-        </div>
-      </footer>
-
-      <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "mobile_sticky" })} className="fixed inset-x-4 bottom-4 z-40 flex h-13 items-center justify-center rounded-full bg-[#6d35d8] px-5 text-sm font-bold text-white shadow-[0_16px_38px_rgba(39,19,56,0.35)] md:hidden">
-        Solicitar análise<ArrowRight className="ml-2 size-4" />
-      </a>
     </main>
   );
 }
