@@ -27,7 +27,7 @@ test("renders the landing page at its production subpath", async () => {
     /^text\/html\b/i,
   );
   const html = await response.text();
-  assert.match(html, /Sua clínica já tem audiência/);
+  assert.match(html, /Querendo aumentar o faturamento da sua empresa de forma/);
   assert.match(html, /id="diagnostico"/);
   assert.match(html, /Solicitar diagnóstico estratégico/);
 });
