@@ -4,7 +4,6 @@ import { FormEvent, useState } from "react";
 import {
   ArrowRight,
   BarChart3,
-  Check,
   CheckCircle2,
   LineChart,
   ShieldCheck,
@@ -58,6 +57,25 @@ const advertisingOptions = [
   "Sim, ocasionalmente",
   "Ainda não investe",
 ];
+
+const originalSiteNavigation = [
+  ["Home", "https://ucanmkt.com.br/#inicio"],
+  ["Serviços", "https://ucanmkt.com.br/#servicos"],
+  ["Cases", "https://ucanmkt.com.br/#cases"],
+  ["Sobre", "https://ucanmkt.com.br/#sobre"],
+  ["Contato", "https://ucanmkt.com.br/#final-cta"],
+] as const;
+
+const originalSiteContacts = [
+  ["+55 16 99639-6543", "https://wa.me/5516996396543", true],
+  ["@ucan_agencia", "https://www.instagram.com/ucan_agencia/", true],
+  [
+    "U CAN no Facebook",
+    "https://www.facebook.com/profile.php?id=100090519185464&ref=PROFILE_EDIT_xav_ig_profile_page_web#",
+    true,
+  ],
+  ["digital@ucanmkt.com.br", "mailto:digital@ucanmkt.com.br", false],
+] as const;
 
 type FormStatus = "idle" | "submitting" | "success" | "error";
 
@@ -279,6 +297,55 @@ function LeadForm() {
   );
 }
 
+function OriginalFooter() {
+  return (
+    <footer className="ucan-original-footer">
+      <div className="ucan-original-footer__inner">
+        <div className="ucan-original-footer__columns">
+          <div className="ucan-original-footer__brand">
+            <a href="https://ucanmkt.com.br/#inicio" aria-label="Página inicial da U CAN">
+              <img
+                className="ucan-original-footer__logo"
+                src={`${basePath}/assets/ucan-logo-white.png`}
+                alt="U CAN Marketing Digital"
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+            <p>Estruturas de captação para negócios locais crescerem com mais controle, dados e previsibilidade.</p>
+          </div>
+
+          <nav className="ucan-original-footer__column" aria-label="Navegação do rodapé">
+            <h2>Navegação</h2>
+            {originalSiteNavigation.map(([label, href]) => (
+              <a key={label} href={href}>{label}</a>
+            ))}
+          </nav>
+
+          <div className="ucan-original-footer__column" aria-label="Canais de contato">
+            <h2>Contato</h2>
+            {originalSiteContacts.map(([display, href, external]) => (
+              <a
+                key={display}
+                className="ucan-original-footer__contact-item"
+                href={href}
+                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              >
+                {display}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className="ucan-original-footer__bottom">
+          <p>© 2026 U CAN Marketing Digital. Todos os direitos reservados.</p>
+          <p>Desenvolvido para performance local.</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 export default function Home() {
   return (
     <main className="min-h-screen overflow-hidden bg-[#0a1021] text-[#f8fafc]">
@@ -310,10 +377,10 @@ export default function Home() {
 
       <section id="topo" className="relative scroll-mt-24">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_16%_0%,rgba(109,53,216,0.28),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(0,236,166,0.12),transparent_31%)]" />
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-14 sm:px-8 sm:py-20 lg:grid-cols-[1.04fr_.96fr] lg:items-start lg:gap-16 lg:py-24">
+        <div className="mx-auto grid max-w-7xl gap-12 px-5 pt-24 pb-14 sm:px-8 sm:py-20 lg:grid-cols-[1.04fr_.96fr] lg:items-start lg:gap-16 lg:py-24">
           <div className="pt-2 lg:pt-8">
             <h1 className="max-w-3xl text-[2.75rem] font-black leading-[1.02] tracking-[-0.045em] text-[#f8fafc] sm:text-6xl lg:text-[4.35rem]">
-              Querendo aumentar o faturamento da sua empresa de forma <span className="text-[#00eca6]">saudável?</span>
+              Querendo aumentar o faturamento da sua clínica de forma <span className="text-[#00eca6]">saudável?</span>
             </h1>
 
             <p className="mt-7 max-w-2xl text-lg leading-8 text-[#a8b1c4] sm:text-xl">
@@ -353,17 +420,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="border-y border-[#1f2a43] bg-[#0d1426]">
-        <div className="mx-auto grid max-w-7xl divide-y divide-[#1f2a43] px-5 sm:px-8 md:grid-cols-4 md:divide-x md:divide-y-0">
-          {["Oferta clara", "Captação qualificada", "Processo comercial", "Mensuração completa"].map((item) => (
-            <div key={item} className="flex items-center justify-center gap-2 px-5 py-5 text-center text-sm font-bold text-[#c8d0df]">
-              <Check className="size-4 text-[#00eca6]" />
-              {item}
-            </div>
-          ))}
-        </div>
-      </section>
-
+      <OriginalFooter />
     </main>
   );
 }
