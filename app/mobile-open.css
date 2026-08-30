@@ -1,0 +1,16 @@
+/* Ajustes de abertura da landing no mobile.
+   Mantém somente o cabeçalho global/fixo e reserva o espaço visual do hero. */
+
+/* O cabeçalho oficial agora é renderizado pelo layout, fora do <main>.
+   Oculta a cópia legada que ainda existe dentro da página. */
+main > .ucan-official-header {
+  display: none !important;
+}
+
+@media (max-width: 639px) {
+  /* Faz a página abrir com o cabeçalho totalmente visível e o título abaixo,
+     reproduzindo a composição aprovada no mobile. */
+  #topo > .mx-auto.grid {
+    padding-top: 12.5rem !important;
+  }
+}
