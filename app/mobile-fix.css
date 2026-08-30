@@ -1,0 +1,45 @@
+/* Correções específicas para a abertura da landing em navegadores mobile/iOS. */
+
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* No iOS, um elemento fixed dentro de um ancestral com overflow:hidden pode
+   apresentar clipping ou desaparecer. Mantemos o conteúdo livre no eixo Y e
+   deixamos o body controlar apenas o excesso horizontal. */
+main {
+  overflow: visible !important;
+}
+
+.ucan-official-header {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 2147483000 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.ucan-official-header__inner {
+  visibility: visible !important;
+}
+
+@media (max-width: 639px) {
+  /* Composição aprovada: logo/WhatsApp visíveis no primeiro quadro e o título
+     começa abaixo do cabeçalho, sem encostar nele. */
+  #topo > .mx-auto.grid {
+    padding-top: 12.5rem !important;
+  }
+
+  .ucan-official-header__inner {
+    width: calc(100% - 1.5rem) !important;
+    margin-top: 12px !important;
+  }
+}
