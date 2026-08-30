@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import "./globals.css";
 import "./footer.css";
+import "./mobile-open.css";
 
 export const metadata: Metadata = {
   title: "Marketing para Clínicas | U Can Marketing Digital",
@@ -61,6 +62,10 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{
             __html: `
               (() => {
+                if ('scrollRestoration' in history) {
+                  history.scrollRestoration = 'manual';
+                }
+
                 const header = document.querySelector('[data-layout-header]');
                 if (!header) return;
 
@@ -70,9 +75,16 @@ export default function RootLayout({
                   header.classList.toggle('ucan-official-header--hero', !scrolled);
                 };
 
-                syncHeader();
+                const openAtTop = () => {
+                  if (!window.location.hash) {
+                    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+                  }
+                  syncHeader();
+                };
+
+                requestAnimationFrame(openAtTop);
+                window.addEventListener('load', openAtTop, { once: true });
                 window.addEventListener('scroll', syncHeader, { passive: true });
-                window.addEventListener('pageshow', syncHeader, { passive: true });
               })();
             `,
           }}
