@@ -188,12 +188,11 @@ main > .ucan-official-header {
   box-shadow: 0 0 24px rgba(0, 255, 178, 0.16);
 }
 
-/* No site oficial o hero mobile começa a 116px. Nesta landing não há o eyebrow
-   do hero original antes do título; por isso mantemos o respiro que já havia sido
-   aprovado para que o título fique abaixo do cabeçalho, sem sobreposição. */
+/* No mobile o conteúdo começa logo abaixo do cabeçalho,
+   preservando um respiro confortável sem criar uma área vazia excessiva. */
 @media (max-width: 639px) {
   #topo > .mx-auto.grid {
-    padding-top: 12.5rem !important;
+    padding-top: 8rem !important;
   }
 }
 
