@@ -65,10 +65,12 @@ html {
 
 body {
   margin: 0;
+  overflow-x: hidden;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
   text-rendering: optimizeLegibility;
+  -webkit-overflow-scrolling: touch;
 }
 
 ::selection {
@@ -80,6 +82,11 @@ a,
 button,
 input {
   -webkit-tap-highlight-color: transparent;
+}
+
+/* O header visível é renderizado fora do <main>, como no site oficial. */
+main > .ucan-official-header {
+  display: none;
 }
 
 /* Cabeçalho reproduzido a partir do site oficial da U Can. */
@@ -94,6 +101,13 @@ input {
   border: 0;
   box-shadow: none;
   font-family: "Inter", Arial, Helvetica, sans-serif;
+}
+
+[data-layout-header] {
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .ucan-official-header__inner {
