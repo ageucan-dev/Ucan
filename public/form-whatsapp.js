@@ -182,11 +182,10 @@
 
     const body = JSON.stringify(payload);
 
+    // String simples evita preflight desnecessário em webhooks cross-origin e
+    // aumenta a chance de o navegador concluir o envio durante o redirecionamento.
     try {
-      if (navigator.sendBeacon) {
-        const blob = new Blob([body], { type: "application/json" });
-        if (navigator.sendBeacon(endpoint, blob)) return;
-      }
+      if (navigator.sendBeacon && navigator.sendBeacon(endpoint, body)) return;
     } catch {
       // Usa o fallback abaixo.
     }
@@ -194,7 +193,7 @@
     try {
       fetch(endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "text/plain;charset=UTF-8" },
         body,
         keepalive: true,
       }).catch(() => {});
