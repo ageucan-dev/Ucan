@@ -7,6 +7,14 @@
     return value.charAt(0).toLowerCase() + value.slice(1);
   };
 
+  const createEventId = () => {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") {
+      return `ucan_es_${window.crypto.randomUUID()}`;
+    }
+
+    return `ucan_es_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+  };
+
   const isConsentChecked = (form) => {
     const consent = form.querySelector("#consentimento");
     if (!consent) return false;
@@ -72,17 +80,40 @@
 
       const message = `Olá! Meu nome é ${name} e gostaria de entender melhor como a U Can pode ajudar minha clínica.\n\nMinha clínica/empresa se chama ${company} e atuamos no segmento de ${lowerFirst(segment)}. Atualmente temos ${lowerFirst(followers)} e nosso faturamento mensal é ${lowerFirst(revenue)}.\n\n${advertisingSentence(advertising)}\n\nMeu telefone é ${phone} e meu e-mail é ${email}.\n\nGostaria de receber uma análise sobre a estrutura de captação da minha clínica.`;
 
+      // Um único identificador é criado por conversão. Ele será reutilizado no
+      // Meta Pixel e na Conversions API para permitir deduplicação do evento Lead.
+      const eventId = createEventId();
+      const eventTime = Math.floor(Date.now() / 1000);
       const trackingDetails = {
         form_name: "estetica_saude",
         segment,
         destination: "whatsapp",
+        event_id: eventId,
+        event_time: eventTime,
       };
 
       pushEvent("lead_form_submit", trackingDetails);
-      pushEvent("lead_form_whatsapp", trackingDetails);
 
       const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-      window.location.assign(whatsappUrl);
+      let redirected = false;
+      const redirectToWhatsapp = () => {
+        if (redirected) return;
+        redirected = true;
+        window.location.assign(whatsappUrl);
+      };
+
+      // O callback dá ao GTM tempo para disparar GA4/Meta Pixel antes da saída
+      // da página. eventTimeout e o fallback evitam bloquear o usuário se o GTM
+      // estiver lento, bloqueado ou indisponível.
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: "lead_form_whatsapp",
+        ...trackingDetails,
+        eventCallback: redirectToWhatsapp,
+        eventTimeout: 1200,
+      });
+
+      window.setTimeout(redirectToWhatsapp, 1400);
     },
     true,
   );
