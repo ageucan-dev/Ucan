@@ -51,6 +51,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@500;600;700;800&display=swap"
         />
         <script src="/estetica-saude/form-config.js" defer />
+        <script src="/estetica-saude/form-whatsapp.js" defer />
       </head>
       <body>
         <noscript>
