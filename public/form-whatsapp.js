@@ -70,7 +70,7 @@
       event.preventDefault();
       event.stopImmediatePropagation();
 
-      const message = `Olá! Meu nome é ${name} e gostaria de entender melhor como a U Can pode ajudar minha clínica.\n\nMinha clínica/empresa se chama ${company} e atuamos no segmento de ${lowerFirst(segment)}. Atualmente temos ${lowerFirst(followers)} e nosso faturamento mensal está na faixa ${lowerFirst(revenue)}.\n\n${advertisingSentence(advertising)}\n\nMeu telefone é ${phone} e meu e-mail é ${email}.\n\nGostaria de receber uma análise sobre a estrutura de captação da minha clínica.`;
+      const message = `Olá! Meu nome é ${name} e gostaria de entender melhor como a U Can pode ajudar minha clínica.\n\nMinha clínica/empresa se chama ${company} e atuamos no segmento de ${lowerFirst(segment)}. Atualmente temos ${lowerFirst(followers)} e nosso faturamento mensal é ${lowerFirst(revenue)}.\n\n${advertisingSentence(advertising)}\n\nMeu telefone é ${phone} e meu e-mail é ${email}.\n\nGostaria de receber uma análise sobre a estrutura de captação da minha clínica.`;
 
       const trackingDetails = {
         form_name: "estetica_saude",
