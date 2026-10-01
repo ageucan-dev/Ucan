@@ -26,7 +26,7 @@ declare global {
 }
 
 const basePath = "/estetica-saude";
-const WHATSAPP_NUMBER = "5516996396543";
+const WHATSAPP_NUMBER = "5516991760422";
 
 const segments = [
   "Advocacia",
@@ -326,6 +326,22 @@ function PipelineVisual() {
   );
 }
 
+function ClientLogos() {
+  const clients = [["G&S Advogados", "g-s-advogados.jpg"], ["Top Locações", "top-locacoes.png"], ["KNN Idiomas", "knn.png"], ["H.C. Diesel by Hiper Center", "hiper-center-hc-diesel.jpeg"], ["Mega Marca", "mega-marca.jpg"], ["CCS Advocacia", "ccs-advocacia.png"]];
+  return <section aria-label="Marcas atendidas em projetos" className="border-b border-[#e8ebe7] bg-[#f7f8f6] px-5 py-10 sm:px-8 sm:py-12 lg:px-10"><div className="mx-auto max-w-7xl"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Experiência em diferentes mercados</p><h2 className="mt-2 font-display text-xl font-bold text-[#273149] sm:text-2xl">Marcas de projetos atendidos pela U Can</h2></div><div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">{clients.map(([name, image]) => <div key={name} className="flex h-[86px] items-center justify-center rounded-xl border border-[#e7ebe6] bg-white p-3"><img src={basePath + "/assets/clients/" + image} alt={name} loading="lazy" className="max-h-full max-w-full object-contain" /></div>)}</div></div></section>;
+}
+
+function ChannelPlatforms() {
+  const channels = [["Google Ads", "google-ads.png"], ["Meta Ads", "meta.png"], ["LinkedIn Ads", "linkedin-ads.png"], ["TikTok Ads", "tiktok-ads.png"]];
+  return <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Canais de aquisição</p><h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] text-[#10172a] sm:text-4xl">A estratégia começa pelo público e pela intenção.</h2><p className="mt-4 max-w-xl leading-7 text-[#657087]">A plataforma entra depois de entender o objetivo, a região e o comportamento de busca. A execução depende do escopo definido para cada negócio.</p></div><div className="grid grid-cols-2 gap-3 sm:grid-cols-4">{channels.map(([name, image]) => <div key={name} className="flex h-[90px] items-center justify-center rounded-xl border border-[#e5e9e4] bg-[#fbfcfa] p-3"><img src={basePath + "/assets/channels/" + image} alt={name} loading="lazy" className="max-h-full max-w-full object-contain" /></div>)}</div></div></section>;
+}
+
+function HistoricalDashboard() {
+  const metrics = [["R$ 10 mi+", "Investimento em anúncios informado"], ["520.833", "Contatos gerados"], ["8,7", "Retorno médio sobre investimento informado"], ["R$ 6.578", "Investimento médio por cliente informado"]];
+  const charts = [{ title: "Investimento em anúncios", value: "R$ 10 mi+", label: "registrado nos dados informados", height: "72%" }, { title: "Contatos gerados", value: "520.833", label: "contatos informados", height: "82%" }];
+  return <section className="bg-[#f0f3f1] px-5 py-20 sm:px-8 sm:py-24 lg:px-10"><div className="mx-auto max-w-7xl"><div className="mx-auto max-w-3xl text-center"><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Histórico de operação</p><h2 className="mt-4 font-display text-3xl font-bold tracking-[-.035em] text-[#10172a] sm:text-4xl">Números que ajudam a entender a experiência.</h2><p className="mt-4 leading-7 text-[#657087]">Indicadores históricos informados pela U Can, apresentados como referência do trabalho realizado.</p></div><div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{metrics.map(([value, label], index) => <article key={label} className="rounded-2xl border border-[#dfe5e0] bg-white p-5 shadow-[0_8px_24px_rgba(20,35,27,.04)]"><p className={"font-display text-3xl font-bold tracking-tight " + (index % 2 === 0 ? "text-[#087d5b]" : "text-[#5940a8]")}>{value}</p><p className="mt-2 text-sm leading-5 text-[#68748a]">{label}</p></article>)}</div><div className="mt-5 rounded-[1.5rem] border border-[#dce3de] bg-[#10182a] p-5 text-white shadow-[0_20px_60px_rgba(20,35,27,.12)] sm:p-8"><div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-xs font-bold uppercase tracking-[.15em] text-[#65dfba]">Visão de dashboard</p><h3 className="mt-2 font-display text-xl font-bold sm:text-2xl">Totais históricos disponíveis</h3></div><p className="text-xs text-white/50">Colunas agregadas · sem divisão temporal</p></div><div className="mt-7 grid gap-4 lg:grid-cols-2">{charts.map((chart, index) => <div key={chart.title} className="rounded-xl border border-white/10 bg-[#0b1221] p-4 sm:p-5"><div className="flex items-start justify-between gap-3"><div><p className="text-sm font-semibold text-white/80">{chart.title}</p><p className="mt-1 text-xs text-white/45">{chart.label}</p></div><span className={"rounded-lg px-3 py-1.5 font-display text-sm font-bold " + (index === 0 ? "bg-[#12392f] text-[#65dfba]" : "bg-[#28213f] text-[#c9baff]")}>{chart.value}</span></div><div className="relative mt-5 h-36 overflow-hidden rounded-lg" role="img" aria-label={chart.title + ": " + chart.value + "; total agregado, sem série temporal"}><div className="absolute inset-0 flex flex-col justify-between" aria-hidden="true">{[0,1,2,3,4].map((line) => <span key={line} className="block border-t border-white/[0.09]" />)}</div><div className="absolute inset-x-0 bottom-0 flex h-full items-end justify-center"><div className={"relative w-[18%] min-w-12 overflow-hidden rounded-t-md border border-white/20 " + (index === 0 ? "bg-gradient-to-t from-[#08a979]/40 to-[#49dfb2]/70" : "bg-gradient-to-t from-[#7555cb]/40 to-[#b197ff]/70")} style={{ height: chart.height }}><div className="absolute inset-0 bg-white/10" /><div className="absolute inset-y-0 left-1/3 w-px bg-white/15" /></div></div><div className="absolute inset-x-2 bottom-1 flex justify-center"><span className="rounded-full bg-[#10182a]/90 px-2.5 py-1 text-[10px] font-medium text-white/45">Total agregado</span></div></div></div>)}</div><p className="mt-5 rounded-xl border border-[#f5d98a]/20 bg-[#f5d98a]/[0.07] p-4 text-xs leading-5 text-white/65">Transparência: os números foram informados pela U Can, mas o investimento histórico não está totalmente mensurado. O painel mostra totais agregados disponíveis, não uma série completa. Períodos, atribuição e método de cálculo do retorno e do investimento médio por cliente ainda devem ser confirmados antes de usar esses indicadores como comparação entre períodos.</p></div></div></section>;
+}
+
 export default function Home() {
   return (
     <main id="topo" className="min-h-screen bg-[#f7f8f6] font-sans text-[#10172a]">
@@ -383,6 +399,8 @@ export default function Home() {
         </div>
       </section>
 
+      <ClientLogos />
+
       <section className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.85fr_1.15fr] lg:gap-20 lg:px-10 lg:py-28">
         <div>
           <p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">O que muda</p>
@@ -421,26 +439,9 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-[#f0f3f1] py-20 sm:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-[.95fr_1.05fr] lg:gap-16 lg:px-10">
-          <div>
-            <p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Clareza sobre os números</p>
-            <h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] sm:text-4xl">Acompanhar além do clique.</h2>
-            <p className="mt-5 leading-7 text-[#657087]">O que dá para medir depende da estrutura e dos dados que a empresa tem. A proposta é construir visibilidade sobre o caminho: investimento, contatos, qualificação, agendamentos e vendas quando há registro disponível.</p>
-            <p className="mt-4 text-sm leading-6 text-[#778196]">Os indicadores e integrações são definidos conforme o plano e a operação de cada negócio. Este painel ilustra etapas de análise; não apresenta resultados de clientes.</p>
-          </div>
-          <div className="rounded-[1.6rem] border border-[#dfe5e0] bg-white p-5 shadow-[0_18px_55px_rgba(20,35,27,.07)] sm:p-7">
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#edf0ed] pb-5">
-              <div><p className="text-xs font-semibold uppercase tracking-[.12em] text-[#7b8799]">Leitura de performance</p><p className="mt-1 font-display text-lg font-bold text-[#10172a]">O que acompanhamos</p></div>
-              <span className="rounded-full bg-[#e9fbf5] px-3 py-1.5 text-xs font-semibold text-[#087d5b]">Exemplo de estrutura</span>
-            </div>
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              {["Investimento", "Cliques", "Contatos", "Qualificados", "Agendamentos", "Vendas registradas"].map((metric, index) => <div key={metric} className="rounded-xl bg-[#f6f8f6] p-3.5"><p className="text-xs text-[#758095]">{metric}</p><div className="mt-3 flex items-end gap-1.5" aria-hidden="true">{Array.from({ length: 6 }, (_, bar) => <span key={bar} className="block w-full rounded-sm bg-[#0ab080]/20" style={{ height: `${12 + ((index * 11 + bar * 7) % 30)}px` }} />)}</div><p className="mt-2 text-[10px] text-[#929bab]">Indicador acompanhado</p></div>)}
-            </div>
-            <div className="mt-4 flex items-start gap-3 rounded-xl border border-[#ece5ff] bg-[#f8f6ff] p-4 text-xs leading-5 text-[#5d5475]"><Sparkles className="mt-0.5 size-4 shrink-0 text-[#7958c7]" /><span>Os dados reais da sua operação entram somente após validação e autorização. Nenhum número fictício é usado como case.</span></div>
-          </div>
-        </div>
-      </section>
+      <HistoricalDashboard />
+
+      <ChannelPlatforms />
 
       <section className="bg-[#0a1021] py-16 text-white sm:py-20">
         <div className="mx-auto grid max-w-7xl gap-9 px-5 sm:px-8 lg:grid-cols-[.75fr_1.25fr] lg:items-center lg:px-10">
@@ -482,7 +483,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-x-5 gap-y-3 text-xs text-white/55">
             <a href="https://ucanmkt.com.br/" className="hover:text-white">Site da U Can</a>
             <a href="mailto:digital@ucanmkt.com.br" className="hover:text-white">digital@ucanmkt.com.br</a>
-            <a href="https://wa.me/5516996396543" data-location="footer" target="_blank" rel="noopener noreferrer" className="hover:text-white">WhatsApp</a>
+            <a href="https://wa.me/5516991760422" data-location="footer" target="_blank" rel="noopener noreferrer" className="hover:text-white">WhatsApp</a>
           </div>
         </div>
         <div className="mx-auto mt-8 max-w-7xl border-t border-white/10 pt-5 text-xs text-white/35">© 2026 U Can Marketing Digital. Todos os direitos reservados.</div>
