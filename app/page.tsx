@@ -1,83 +1,48 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import {
+  ArrowDownRight,
   ArrowRight,
   BarChart3,
-  CheckCircle2,
-  LineChart,
+  Check,
+  ChevronDown,
+  ClipboardCheck,
+  Crosshair,
+  MapPin,
+  MessageCircle,
+  MousePointer2,
+  Search,
   ShieldCheck,
+  Sparkles,
   Target,
+  TrendingUp,
 } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 declare global {
   interface Window {
-    UCAN_FORM_ENDPOINT?: string;
     dataLayer?: Array<Record<string, unknown>>;
   }
 }
 
 const basePath = "/estetica-saude";
+const WHATSAPP_NUMBER = "5516996396543";
 
 const segments = [
+  "Advocacia",
   "Clínica de estética",
+  "Clínica médica",
   "Clínica odontológica",
-  "Clínica de massoterapia",
-  "Outra clínica de saúde",
+  "Outro negócio local",
 ];
 
-const followerRanges = [
-  "Até 5 mil seguidores",
-  "De 5 mil a 10 mil seguidores",
-  "De 10 mil a 50 mil seguidores",
-  "Mais de 50 mil seguidores",
+const challenges = [
+  "Quero atrair mais contatos",
+  "Recebo contatos, mas poucos avançam",
+  "Não sei o que os anúncios estão trazendo",
+  "Ainda não anuncio",
+  "Outro momento",
 ];
-
-const revenueRanges = [
-  "Até R$ 20 mil por mês",
-  "De R$ 20 mil a R$ 50 mil por mês",
-  "De R$ 50 mil a R$ 100 mil por mês",
-  "De R$ 100 mil a R$ 250 mil por mês",
-  "Acima de R$ 250 mil por mês",
-];
-
-const advertisingOptions = [
-  "Sim, de forma contínua",
-  "Sim, ocasionalmente",
-  "Ainda não investe",
-];
-
-const originalSiteNavigation = [
-  ["Home", "https://ucanmkt.com.br/#inicio"],
-  ["Serviços", "https://ucanmkt.com.br/#servicos"],
-  ["Cases", "https://ucanmkt.com.br/#cases"],
-  ["Sobre", "https://ucanmkt.com.br/#sobre"],
-  ["Contato", "https://ucanmkt.com.br/#final-cta"],
-] as const;
-
-const originalSiteContacts = [
-  ["+55 16 99639-6543", "https://wa.me/5516996396543", true],
-  ["@ucan_agencia", "https://www.instagram.com/ucan_agencia/", true],
-  [
-    "U CAN no Facebook",
-    "https://www.facebook.com/profile.php?id=100090519185464&ref=PROFILE_EDIT_xav_ig_profile_page_web#",
-    true,
-  ],
-  ["digital@ucanmkt.com.br", "mailto:digital@ucanmkt.com.br", false],
-] as const;
-
-type FormStatus = "idle" | "submitting" | "success" | "error";
 
 function pushEvent(event: string, details: Record<string, unknown> = {}) {
   if (typeof window === "undefined") return;
@@ -85,342 +50,447 @@ function pushEvent(event: string, details: Record<string, unknown> = {}) {
   window.dataLayer.push({ event, ...details });
 }
 
-function formatPhone(value: string) {
-  const digits = value.replace(/\D/g, "").slice(0, 11);
-  if (digits.length <= 2) return digits;
-  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
-  if (digits.length <= 10) {
-    return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+function createEventId() {
+  if (typeof window !== "undefined" && window.crypto?.randomUUID) {
+    return `ucan_lp_${window.crypto.randomUUID()}`;
   }
-  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+  return `ucan_lp_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
 }
 
-function FormSelect({
-  id,
-  label,
-  placeholder,
-  value,
-  options,
-  onValueChange,
-}: {
-  id: string;
-  label: string;
-  placeholder: string;
-  value: string;
-  options: string[];
-  onValueChange: (value: string) => void;
-}) {
-  return (
-    <div className="space-y-2">
-      <label htmlFor={id} className="text-sm font-semibold text-[#e8edf7]">
-        {label}
-      </label>
-      <input type="hidden" name={id} value={value} />
-      <Select value={value} onValueChange={onValueChange}>
-        <SelectTrigger
-          id={id}
-          className="h-12 w-full rounded-xl border-[#2c3855] bg-[#0d1426] px-4 text-left text-[15px] text-[#f8fafc] shadow-none focus:ring-[#00eca6]/30"
-        >
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-        <SelectContent className="border-[#2c3855] bg-[#11182c] text-[#f8fafc]">
-          {options.map((option) => (
-            <SelectItem key={option} value={option} className="py-2.5 focus:bg-[#19233b] focus:text-[#00eca6]">
-              {option}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
-  );
+function TrackingBridge() {
+  useEffect(() => {
+    const keys = [
+      "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
+      "utm_id", "gclid", "gbraid", "wbraid", "fbclid", "msclkid",
+    ];
+    const params = new URLSearchParams(window.location.search);
+    const current: Record<string, string> = {};
+    keys.forEach((key) => {
+      const value = params.get(key);
+      if (value) current[key] = value;
+    });
+
+    const storageKey = "ucan_local_lead_attribution_v1";
+    let stored: Record<string, Record<string, string>> = {};
+    try {
+      stored = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    } catch {
+      stored = {};
+    }
+
+    const touch = {
+      ...current,
+      landing_page: window.location.href,
+      referrer: document.referrer || "",
+      captured_at: new Date().toISOString(),
+    };
+    if (!stored.first_touch) stored.first_touch = touch;
+    if (Object.keys(current).length || !stored.last_touch) stored.last_touch = touch;
+
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(stored));
+    } catch {
+      // A página continua funcionando quando o armazenamento está indisponível.
+    }
+
+    pushEvent("tracking_context_ready", {
+      form_name: "negocios_locais",
+      tracking: {
+        first_touch: stored.first_touch,
+        last_touch: stored.last_touch,
+        page_location: window.location.href,
+        page_path: window.location.pathname,
+        page_referrer: document.referrer || "",
+      },
+    });
+
+    const handleWhatsAppClick = (event: MouseEvent) => {
+      const target = event.target;
+      if (!(target instanceof Element)) return;
+      const link = target.closest<HTMLAnchorElement>('a[href*="wa.me/"]');
+      if (!link) return;
+      pushEvent("whatsapp_click", {
+        form_name: "negocios_locais",
+        cta_location: link.dataset.location || "page",
+      });
+    };
+    document.addEventListener("click", handleWhatsAppClick);
+    return () => document.removeEventListener("click", handleWhatsAppClick);
+  }, []);
+
+  return null;
 }
 
 function LeadForm() {
-  const [phone, setPhone] = useState("");
-  const [segment, setSegment] = useState("");
-  const [followers, setFollowers] = useState("");
-  const [revenue, setRevenue] = useState("");
-  const [advertising, setAdvertising] = useState("");
-  const [consent, setConsent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "error">("idle");
+  const [error, setError] = useState("");
   const [started, setStarted] = useState(false);
-  const [status, setStatus] = useState<FormStatus>("idle");
-  const [message, setMessage] = useState("");
 
   function markStarted() {
     if (started) return;
     setStarted(true);
-    pushEvent("lead_form_start", { form_name: "estetica_saude" });
+    pushEvent("lead_form_start", { form_name: "negocios_locais" });
   }
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
+    const formData = new FormData(form);
+    const name = String(formData.get("nome") || "").trim();
+    const phone = String(formData.get("telefone") || "").trim();
+    const segment = String(formData.get("segmento") || "").trim();
+    const city = String(formData.get("cidade") || "").trim();
+    const challenge = String(formData.get("desafio") || "").trim();
+    const consent = formData.get("consentimento") === "on";
 
-    if (!segment || !followers || !revenue || !advertising || !consent) {
+    if (!name || !phone || !segment || !consent) {
       setStatus("error");
-      setMessage("Preencha as opções de qualificação e confirme a autorização de contato.");
+      setError("Preencha nome, WhatsApp e segmento e autorize o contato para continuar.");
       return;
     }
 
-    const endpoint = window.UCAN_FORM_ENDPOINT?.trim();
-    if (!endpoint) {
-      setStatus("error");
-      setMessage("O formulário está pronto, mas o destino dos contatos ainda precisa ser conectado.");
-      return;
-    }
+    setStatus("idle");
+    setError("");
+    const eventId = createEventId();
+    const eventTime = Math.floor(Date.now() / 1000);
+    const eventDetails = {
+      form_name: "negocios_locais",
+      segment,
+      destination: "whatsapp",
+      event_id: eventId,
+      event_time: eventTime,
+    };
 
-    setStatus("submitting");
-    setMessage("");
-    pushEvent("lead_form_submit", { form_name: "estetica_saude", segment });
+    pushEvent("lead_form_submit", eventDetails);
+    pushEvent("generate_lead", eventDetails);
 
-    try {
-      const formData = new FormData(form);
-      formData.set("segmento", segment);
-      formData.set("seguidores", followers);
-      formData.set("faturamento", revenue);
-      formData.set("investe_publicidade", advertising);
-      formData.set("consentimento", "Sim");
-      formData.set("pagina", window.location.href);
-      formData.set("data_envio", new Date().toISOString());
+    const message = [
+      `Olá! Sou ${name}.`,
+      `Tenho ${segment}${city ? ` em ${city}` : ""}.`,
+      challenge ? `Hoje, meu principal desafio é: ${challenge.toLowerCase()}.` : "",
+      "Gostaria de conversar sobre uma análise da minha estrutura de captação.",
+      `Meu WhatsApp é ${phone}.`,
+    ].filter(Boolean).join("\\n\\n");
 
-      const params = new URLSearchParams(window.location.search);
-      ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach(
-        (key) => formData.set(key, params.get(key) || ""),
-      );
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    let redirected = false;
+    const redirect = () => {
+      if (redirected) return;
+      redirected = true;
+      window.location.assign(whatsappUrl);
+    };
 
-      await fetch(endpoint, {
-        method: "POST",
-        mode: "no-cors",
-        body: formData,
-      });
-
-      setStatus("success");
-      setMessage("Recebemos seus dados. A equipe da U Can entrará em contato após analisar o perfil da clínica.");
-      pushEvent("lead_form_success", { form_name: "estetica_saude", segment });
-      form.reset();
-      setPhone("");
-      setSegment("");
-      setFollowers("");
-      setRevenue("");
-      setAdvertising("");
-      setConsent(false);
-    } catch {
-      setStatus("error");
-      setMessage("Não foi possível enviar agora. Revise sua conexão e tente novamente.");
-      pushEvent("lead_form_error", { form_name: "estetica_saude" });
-    }
-  }
-
-  if (status === "success") {
-    return (
-      <div className="flex min-h-[520px] flex-col items-center justify-center text-center" aria-live="polite">
-        <div className="mb-6 grid size-16 place-items-center rounded-full bg-[#0d3b34] text-[#00eca6]">
-          <CheckCircle2 className="size-8" />
-        </div>
-        <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#00eca6]">Formulário enviado</p>
-        <h2 className="mt-3 text-3xl font-bold tracking-tight text-[#f8fafc]">Agora vamos analisar sua clínica.</h2>
-        <p className="mt-4 max-w-md text-base leading-7 text-[#a8b1c4]">{message}</p>
-        <Button
-          type="button"
-          onClick={() => setStatus("idle")}
-          className="mt-7 h-11 rounded-full bg-[#00eca6] px-6 font-bold text-[#06121a] hover:bg-[#00d999]"
-        >
-          Enviar outro contato
-        </Button>
-      </div>
-    );
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: "lead_form_whatsapp",
+      ...eventDetails,
+      eventCallback: redirect,
+      eventTimeout: 1000,
+    });
+    window.setTimeout(redirect, 1200);
   }
 
   return (
-    <form id="diagnostico" onSubmit={handleSubmit} onFocus={markStarted} className="scroll-mt-24">
-      <div className="mb-7">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-[#102c2c] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-[#00eca6]">
-          <ShieldCheck className="size-4" />
-          Análise de perfil
-        </div>
-        <h2 className="text-3xl font-bold tracking-tight text-[#f8fafc]">Vamos entender o momento da sua clínica.</h2>
-        <p className="mt-3 text-sm leading-6 text-[#a8b1c4]">
-          Leva menos de 2 minutos. As informações ajudam a equipe a preparar um diagnóstico mais objetivo.
-        </p>
+    <form id="diagnostico" onSubmit={handleSubmit} onFocus={markStarted} className="space-y-4">
+      <div className="mb-5">
+        <span className="inline-flex items-center gap-2 rounded-full bg-[#e9fbf5] px-3 py-1.5 text-xs font-bold uppercase tracking-[0.12em] text-[#087d5b]">
+          <ClipboardCheck className="size-4" /> Conversa inicial
+        </span>
+        <h2 className="mt-4 font-display text-2xl font-bold tracking-tight text-[#10172a] sm:text-3xl">Vamos olhar para o seu cenário?</h2>
+        <p className="mt-2 text-sm leading-6 text-[#657087]">Conte o básico. A conversa continua no WhatsApp, sem compromisso.</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="space-y-2">
-          <label htmlFor="nome" className="text-sm font-semibold text-[#e8edf7]">Nome</label>
-          <Input id="nome" name="nome" required autoComplete="name" placeholder="Como podemos chamar você?" className="h-12 rounded-xl border-[#2c3855] bg-[#0d1426] px-4 text-[15px] text-[#f8fafc] shadow-none placeholder:text-[#6f7b94] focus-visible:ring-[#00eca6]/30" />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="telefone" className="text-sm font-semibold text-[#e8edf7]">Telefone</label>
-          <Input id="telefone" name="telefone" required inputMode="tel" autoComplete="tel" value={phone} onChange={(event) => setPhone(formatPhone(event.target.value))} placeholder="(16) 99999-9999" className="h-12 rounded-xl border-[#2c3855] bg-[#0d1426] px-4 text-[15px] text-[#f8fafc] shadow-none placeholder:text-[#6f7b94] focus-visible:ring-[#00eca6]/30" />
-        </div>
-      </div>
-
-      <div className="mt-4 space-y-2">
-        <label htmlFor="email" className="text-sm font-semibold text-[#e8edf7]">E-mail</label>
-        <Input id="email" name="email" type="email" required autoComplete="email" placeholder="voce@clinica.com.br" className="h-12 rounded-xl border-[#2c3855] bg-[#0d1426] px-4 text-[15px] text-[#f8fafc] shadow-none placeholder:text-[#6f7b94] focus-visible:ring-[#00eca6]/30" />
-      </div>
-
-      <div className="mt-4 space-y-2">
-        <label htmlFor="empresa" className="text-sm font-semibold text-[#e8edf7]">Nome da clínica ou empresa</label>
-        <Input id="empresa" name="empresa" required autoComplete="organization" placeholder="Nome da sua empresa" className="h-12 rounded-xl border-[#2c3855] bg-[#0d1426] px-4 text-[15px] text-[#f8fafc] shadow-none placeholder:text-[#6f7b94] focus-visible:ring-[#00eca6]/30" />
-      </div>
-
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <FormSelect id="segmento" label="Segmento" placeholder="Selecione o segmento" value={segment} options={segments} onValueChange={setSegment} />
-        <FormSelect id="seguidores" label="Seguidores da clínica" placeholder="Selecione uma faixa" value={followers} options={followerRanges} onValueChange={setFollowers} />
-      </div>
-
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <FormSelect id="faturamento" label="Faturamento mensal" placeholder="Selecione uma faixa" value={revenue} options={revenueRanges} onValueChange={setRevenue} />
-        <FormSelect id="investe_publicidade" label="Investe em publicidade?" placeholder="Selecione uma opção" value={advertising} options={advertisingOptions} onValueChange={setAdvertising} />
-      </div>
-
-      <div className="mt-5 flex items-start gap-3 rounded-xl bg-[#0d1426] p-4">
-        <Checkbox id="consentimento" checked={consent} onCheckedChange={(value) => setConsent(value === true)} className="mt-0.5 border-[#6f7b94] data-[state=checked]:border-[#00eca6] data-[state=checked]:bg-[#00eca6] data-[state=checked]:text-[#06121a]" />
-        <label htmlFor="consentimento" className="cursor-pointer text-xs leading-5 text-[#9eabc1]">
-          Autorizo a U Can Marketing Digital a entrar em contato para analisar minha solicitação. Meus dados serão utilizados somente para atendimento comercial.
+        <label className="space-y-1.5 text-sm font-semibold text-[#273149]">
+          Seu nome
+          <input name="nome" autoComplete="name" required maxLength={80} placeholder="Como podemos chamar você?" className="h-12 w-full rounded-xl border border-[#dce2ea] bg-white px-3.5 font-normal outline-none transition focus:border-[#08a979] focus:ring-4 focus:ring-[#08a979]/10" />
+        </label>
+        <label className="space-y-1.5 text-sm font-semibold text-[#273149]">
+          WhatsApp
+          <input name="telefone" type="tel" inputMode="tel" autoComplete="tel" required maxLength={24} placeholder="(00) 00000-0000" className="h-12 w-full rounded-xl border border-[#dce2ea] bg-white px-3.5 font-normal outline-none transition focus:border-[#08a979] focus:ring-4 focus:ring-[#08a979]/10" />
         </label>
       </div>
 
-      {message && (
-        <p className={`mt-4 rounded-xl px-4 py-3 text-sm ${status === "error" ? "bg-[#3a151c] text-[#ffb4c0]" : "bg-[#102c2c] text-[#00eca6]"}`} aria-live="polite">
-          {message}
-        </p>
-      )}
+      <label className="block space-y-1.5 text-sm font-semibold text-[#273149]">
+        Qual é o seu segmento?
+        <select name="segmento" required defaultValue="" className="h-12 w-full rounded-xl border border-[#dce2ea] bg-white px-3.5 font-normal outline-none transition focus:border-[#08a979] focus:ring-4 focus:ring-[#08a979]/10">
+          <option value="" disabled>Selecione uma opção</option>
+          {segments.map((item) => <option key={item}>{item}</option>)}
+        </select>
+      </label>
 
-      <Button type="submit" disabled={status === "submitting"} className="mt-5 h-14 w-full rounded-xl bg-[#00eca6] text-base font-bold text-[#06121a] shadow-[0_14px_34px_rgba(0,236,166,0.2)] transition hover:-translate-y-0.5 hover:bg-[#00d999] disabled:translate-y-0">
-        {status === "submitting" ? "Enviando..." : "Solicitar diagnóstico estratégico"}
-        {status !== "submitting" && <ArrowRight className="ml-2 size-5" />}
-      </Button>
-      <p className="mt-3 text-center text-xs text-[#8995ab]">A solicitação passa por uma análise antes do contato.</p>
+      <details className="group rounded-xl border border-[#e3e7ed] bg-[#fbfcfd]">
+        <summary className="flex cursor-pointer list-none items-center justify-between gap-3 px-4 py-3.5 text-sm font-semibold text-[#38445b]">
+          Adicionar cidade e principal desafio <span className="text-xs font-normal text-[#8490a4]">opcional</span>
+          <ChevronDown className="size-4 shrink-0 transition group-open:rotate-180" />
+        </summary>
+        <div className="grid gap-3 border-t border-[#e8ebf0] p-4 sm:grid-cols-2">
+          <label className="space-y-1.5 text-sm font-semibold text-[#273149]">
+            Cidade
+            <input name="cidade" autoComplete="address-level2" maxLength={80} placeholder="Ex.: Franca, SP" className="h-11 w-full rounded-lg border border-[#dce2ea] bg-white px-3 text-sm font-normal outline-none focus:border-[#08a979]" />
+          </label>
+          <label className="space-y-1.5 text-sm font-semibold text-[#273149]">
+            Principal desafio
+            <select name="desafio" defaultValue="" className="h-11 w-full rounded-lg border border-[#dce2ea] bg-white px-3 text-sm font-normal outline-none focus:border-[#08a979]">
+              <option value="">Prefiro contar no WhatsApp</option>
+              {challenges.map((item) => <option key={item}>{item}</option>)}
+            </select>
+          </label>
+        </div>
+      </details>
+
+      <label className="flex cursor-pointer items-start gap-3 rounded-xl bg-[#f5f7f9] p-3.5 text-xs leading-5 text-[#68748a]">
+        <input type="checkbox" name="consentimento" required className="mt-0.5 size-4 shrink-0 accent-[#08a979]" />
+        <span>Autorizo a U Can a entrar em contato sobre esta solicitação. Meus dados serão usados para atendimento comercial.</span>
+      </label>
+
+      {error && <p role="alert" className="rounded-xl bg-[#fff0ef] px-4 py-3 text-sm text-[#a8332a]">{error}</p>}
+
+      <button type="submit" className="group flex h-14 w-full items-center justify-center gap-2 rounded-xl bg-[#08a979] px-5 text-base font-bold text-white shadow-[0_12px_28px_rgba(8,169,121,.2)] transition hover:-translate-y-0.5 hover:bg-[#078e67] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#087d5b]">
+        Quero conversar sobre minha captação <ArrowRight className="size-5 transition group-hover:translate-x-1" />
+      </button>
+      <p className="text-center text-xs text-[#8791a3]">Ao enviar, o WhatsApp abre com uma mensagem pronta para você revisar.</p>
     </form>
   );
 }
 
-function OriginalFooter() {
+const faqs = [
+  {
+    question: "A U Can atende somente clínicas?",
+    answer: "Não. A U Can estrutura aquisição e mensuração para negócios locais. A página apresenta exemplos de advocacia e clínicas, mas o melhor caminho depende do segmento, da região e da oferta de cada empresa.",
+  },
+  {
+    question: "Preciso já anunciar no Google?",
+    answer: "Não. A conversa inicial serve para entender o momento do negócio, a demanda de busca e o que precisa estar pronto antes de investir em mídia.",
+  },
+  {
+    question: "A U Can garante quantidade de leads ou vendas?",
+    answer: "Não prometemos um volume ou resultado garantido. A performance depende de fatores como oferta, região, verba, concorrência, página e atendimento comercial. O trabalho é acompanhar esses pontos e tomar decisões com dados.",
+  },
+  {
+    question: "O investimento em anúncios está incluído?",
+    answer: "Não. A verba de mídia é paga pelo cliente diretamente às plataformas e não está incluída na mensalidade dos serviços.",
+  },
+];
+
+function BrandMark() {
   return (
-    <footer className="ucan-original-footer">
-      <div className="ucan-original-footer__inner">
-        <div className="ucan-original-footer__columns">
-          <div className="ucan-original-footer__brand">
-            <a href="https://ucanmkt.com.br/#inicio" aria-label="Página inicial da U CAN">
-              <img
-                className="ucan-original-footer__logo"
-                src={`${basePath}/assets/ucan-logo-white.png`}
-                alt="U CAN Marketing Digital"
-                loading="lazy"
-                decoding="async"
-              />
-            </a>
-            <p>Estruturas de captação para negócios locais crescerem com mais controle, dados e previsibilidade.</p>
-          </div>
+    <a href="#topo" className="flex items-center gap-3" aria-label="U Can Marketing Digital">
+      <img src={`${basePath}/assets/ucan-logo-white.png`} alt="" className="size-11 object-contain" />
+      <span className="leading-tight">
+        <span className="block font-display text-lg font-extrabold tracking-[0.1em] text-white">U CAN</span>
+        <span className="block text-[11px] font-medium tracking-wide text-white/65">Marketing Digital</span>
+      </span>
+    </a>
+  );
+}
 
-          <nav className="ucan-original-footer__column" aria-label="Navegação do rodapé">
-            <h2>Navegação</h2>
-            {originalSiteNavigation.map(([label, href]) => (
-              <a key={label} href={href}>{label}</a>
-            ))}
-          </nav>
+function PipelineVisual() {
+  const steps = [
+    ["01", "Busca com intenção", "A pessoa procura uma solução"],
+    ["02", "Página que orienta", "Oferta clara e próximo passo"],
+    ["03", "Conversa no WhatsApp", "Contato com contexto"],
+    ["04", "Mensuração", "Leitura para otimizar"],
+  ];
 
-          <div className="ucan-original-footer__column" aria-label="Canais de contato">
-            <h2>Contato</h2>
-            {originalSiteContacts.map(([display, href, external]) => (
-              <a
-                key={display}
-                className="ucan-original-footer__contact-item"
-                href={href}
-                {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              >
-                {display}
-              </a>
-            ))}
+  return (
+    <div className="relative mx-auto w-full max-w-[500px]">
+      <div className="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-[#7045d8]/35 via-transparent to-[#05dba2]/20 blur-2xl" />
+      <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-[#111a2e] p-5 shadow-[0_32px_90px_rgba(0,0,0,.4)] sm:p-7">
+        <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5">
+          <div>
+            <p className="text-[11px] font-bold uppercase tracking-[.18em] text-[#5de0ba]">Sistema de captação</p>
+            <h2 className="mt-2 font-display text-xl font-bold text-white">Cada etapa tem uma função.</h2>
           </div>
+          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#142b33] text-[#5de0ba]"><Crosshair className="size-5" /></span>
         </div>
-
-        <div className="ucan-original-footer__bottom">
-          <p>© 2026 U CAN Marketing Digital. Todos os direitos reservados.</p>
-          <p>Desenvolvido para performance local.</p>
+        <div className="mt-5 space-y-3">
+          {steps.map(([number, title, subtitle], index) => (
+            <div key={number} className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.035] p-3.5">
+              <span className={`grid size-9 shrink-0 place-items-center rounded-lg text-xs font-bold ${index === 3 ? "bg-[#183c35] text-[#5de0ba]" : "bg-[#25213d] text-[#c5b7ff]"}`}>{number}</span>
+              <div className="min-w-0 flex-1">
+                <p className="text-sm font-semibold text-white">{title}</p>
+                <p className="mt-0.5 text-xs text-white/55">{subtitle}</p>
+              </div>
+              {index < 3 && <ArrowRight className="size-4 shrink-0 text-white/30" />}
+              {index === 3 && <Check className="size-4 shrink-0 text-[#5de0ba]" />}
+            </div>
+          ))}
+        </div>
+        <div className="mt-5 flex items-center gap-2 rounded-lg bg-[#0b1221] px-3.5 py-3 text-xs leading-5 text-white/55">
+          <ShieldCheck className="size-4 shrink-0 text-[#5de0ba]" />
+          Processo ilustrativo. Os indicadores são definidos conforme a operação.
         </div>
       </div>
-    </footer>
+    </div>
   );
 }
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#0a1021] text-[#f8fafc]">
-      <header className="ucan-official-header">
-        <div className="ucan-official-header__inner">
-          <a href="#topo" className="ucan-official-header__brand" aria-label="U Can Marketing Digital">
-            <span className="ucan-official-header__symbol">
-              <img src={`${basePath}/assets/ucan-logo-white.png`} alt="" />
-            </span>
-            <span className="ucan-official-header__copy">
-              <span className="ucan-official-header__name">U CAN</span>
-              <span className="ucan-official-header__subtitle">Marketing Digital</span>
-            </span>
-          </a>
-
-          <a
-            href="https://wa.me/5516996396345"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Conversar com a U Can no WhatsApp"
-            onClick={() => pushEvent("cta_click", { cta_location: "header_whatsapp" })}
-            className="ucan-official-header__whatsapp"
-          >
-            <img src={`${basePath}/assets/whatsapp.png`} alt="" />
-            <span className="ucan-official-header__whatsapp-label">Quero uma análise</span>
+    <main id="topo" className="min-h-screen bg-[#f7f8f6] font-sans text-[#10172a]">
+      <TrackingBridge />
+      <header className="absolute inset-x-0 top-0 z-20">
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
+          <BrandMark />
+          <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "header" })} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 text-sm font-semibold text-white transition hover:bg-white/10 sm:px-5">
+            <span className="hidden sm:inline">Entender meu cenário</span><span className="sm:hidden">Falar com a U Can</span><ArrowDownRight className="size-4" />
           </a>
         </div>
       </header>
 
-      <section id="topo" className="relative scroll-mt-24">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_16%_0%,rgba(109,53,216,0.28),transparent_34%),radial-gradient(circle_at_85%_20%,rgba(0,236,166,0.12),transparent_31%)]" />
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 pt-24 pb-14 sm:px-8 sm:py-20 lg:grid-cols-[1.04fr_.96fr] lg:items-start lg:gap-16 lg:py-24">
-          <div className="pt-2 lg:pt-8">
-            <h1 className="max-w-3xl text-[2.75rem] font-black leading-[1.02] tracking-[-0.045em] text-[#f8fafc] sm:text-6xl lg:text-[4.35rem]">
-              Querendo aumentar o faturamento da sua clínica de forma <span className="text-[#00eca6]">saudável?</span>
-            </h1>
-
-            <p className="mt-7 max-w-2xl text-lg leading-8 text-[#a8b1c4] sm:text-xl">
-              A U Can conecta anúncios, página, atendimento, agendamento, vendas e mensuração para sua clínica entender o que gera resultado e onde o faturamento está escapando.
+      <section className="relative isolate overflow-hidden bg-[#0a1021] text-white">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_18%_5%,rgba(104,62,205,.27),transparent_37%),radial-gradient(ellipse_at_87%_64%,rgba(0,213,157,.14),transparent_34%)]" />
+        <div className="mx-auto grid min-h-[700px] max-w-7xl items-center gap-12 px-5 pb-16 pt-32 sm:px-8 sm:pb-20 sm:pt-36 lg:grid-cols-[1.04fr_.96fr] lg:gap-16 lg:px-10 lg:pt-32">
+          <div className="max-w-2xl">
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3.5 py-2 text-xs font-semibold tracking-wide text-white/75">
+              <span className="size-2 rounded-full bg-[#25d5a0]" /> Aquisição e performance para negócios locais
             </p>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              {["Estética", "Odontologia", "Massoterapia"].map((item) => (
-                <span key={item} className="rounded-full border border-[#2b3652] bg-[#11182c] px-4 py-2 text-sm font-bold text-[#d9e0ee] shadow-[0_8px_20px_rgba(0,0,0,0.18)]">{item}</span>
+            <h1 className="mt-7 font-display text-[2.7rem] font-bold leading-[1.04] tracking-[-.045em] sm:text-6xl lg:text-[4.1rem]">
+              Seu próximo cliente pode estar <span className="text-[#4ce0b4]">procurando no Google.</span>
+            </h1>
+            <p className="mt-6 max-w-xl text-base leading-7 text-[#bdc5d4] sm:text-lg sm:leading-8">
+              A U Can conecta anúncio, página, WhatsApp e mensuração para o seu negócio local transformar procura em conversas comerciais melhor acompanhadas.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-2">
+              {["Advocacia", "Estética", "Medicina", "Odontologia", "Negócios locais"].map((item) => (
+                <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-2 text-xs font-medium text-white/75">{item}</span>
               ))}
             </div>
-
-            <div className="mt-9 grid max-w-2xl gap-3 sm:grid-cols-3">
-              {[
-                [Target, "Aquisição", "Leads mais alinhados"],
-                [BarChart3, "Mensuração", "Retorno acompanhado"],
-                [LineChart, "Previsibilidade", "Decisões com dados"],
-              ].map(([Icon, title, text]) => {
-                const IconComponent = Icon as typeof Target;
-                return (
-                  <div key={String(title)} className="rounded-2xl border border-[#26314b] bg-[#11182c]/85 p-4 shadow-[0_12px_34px_rgba(0,0,0,0.22)] backdrop-blur">
-                    <IconComponent className="size-5 text-[#00eca6]" />
-                    <p className="mt-3 text-sm font-bold text-[#f8fafc]">{String(title)}</p>
-                    <p className="mt-1 text-xs leading-5 text-[#9da8bd]">{String(text)}</p>
-                  </div>
-                );
-              })}
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+              <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "hero_primary" })} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-[#08a979] px-6 text-sm font-bold text-white shadow-[0_15px_34px_rgba(8,169,121,.22)] transition hover:-translate-y-0.5 hover:bg-[#078e67]">
+                Quero analisar minha captação <ArrowRight className="size-4" />
+              </a>
+              <a href="#como-funciona" onClick={() => pushEvent("cta_click", { cta_location: "hero_secondary" })} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl border border-white/15 px-5 text-sm font-semibold text-white/85 transition hover:bg-white/[0.06]">
+                Ver como funciona <ArrowDownRight className="size-4" />
+              </a>
             </div>
+            <p className="mt-4 text-xs text-white/45">Uma conversa para entender o cenário. Sem promessa de resultado pronto.</p>
           </div>
-
-          <div className="relative">
-            <div className="absolute -inset-5 -z-10 rounded-[2.5rem] bg-gradient-to-br from-[#6d35d8]/35 via-transparent to-[#00eca6]/20 blur-2xl" />
-            <div className="rounded-[2rem] border border-[#26314b] bg-[#11182c] p-6 shadow-[0_30px_80px_rgba(0,0,0,0.35)] sm:p-8">
-              <LeadForm />
-            </div>
+          <PipelineVisual />
+        </div>
+        <div className="border-t border-white/[0.08]">
+          <div className="mx-auto grid max-w-7xl gap-4 px-5 py-6 sm:grid-cols-3 sm:px-8 lg:px-10">
+            {[
+              [Search, "Intenção", "Encontrar quem já está procurando"],
+              [MessageCircle, "Contato", "Deixar o próximo passo simples"],
+              [BarChart3, "Mensuração", "Entender o que acontece depois do clique"],
+            ].map(([Icon, title, text]) => {
+              const IconComponent = Icon as typeof Search;
+              return <div key={String(title)} className="flex items-center gap-3"><span className="grid size-10 place-items-center rounded-xl bg-white/[0.06] text-[#58dfb7]"><IconComponent className="size-5" /></span><div><p className="text-sm font-bold text-white">{String(title)}</p><p className="mt-0.5 text-xs text-white/50">{String(text)}</p></div></div>;
+            })}
           </div>
         </div>
       </section>
 
-      <OriginalFooter />
+      <section className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-8 lg:grid-cols-[.85fr_1.15fr] lg:gap-20 lg:px-10 lg:py-28">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">O que muda</p>
+          <h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] text-[#10172a] sm:text-4xl">Mais do que colocar anúncios no ar.</h2>
+          <p className="mt-5 leading-7 text-[#657087]">Quando anúncio, página e atendimento trabalham separados, fica difícil saber onde os contatos se perdem. A operação precisa olhar o caminho inteiro.</p>
+          <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "what_changes" })} className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#087d5b] hover:text-[#055f45]">Vamos conversar sobre esse caminho <ArrowRight className="size-4" /></a>
+        </div>
+        <div className="grid gap-3 sm:grid-cols-2">
+          {[
+            [Target, "A oferta", "Ajuste de mensagem ao que sua empresa realmente vende."],
+            [MousePointer2, "A chegada", "Página ou WhatsApp com um próximo passo claro."],
+            [MessageCircle, "O atendimento", "Contexto para a equipe dar sequência ao contato."],
+            [TrendingUp, "A leitura", "Indicadores para identificar avanços e gargalos."],
+          ].map(([Icon, title, text]) => {
+            const IconComponent = Icon as typeof Target;
+            return <article key={String(title)} className="rounded-2xl border border-[#e4e8e3] bg-white p-5 sm:p-6"><IconComponent className="size-5 text-[#08a979]" /><h3 className="mt-4 font-display text-lg font-bold">{String(title)}</h3><p className="mt-2 text-sm leading-6 text-[#6a7486]">{String(text)}</p></article>;
+          })}
+        </div>
+      </section>
+
+      <section id="como-funciona" className="scroll-mt-10 bg-white py-20 sm:py-24">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+          <div className="max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Um processo conectado</p>
+            <h2 className="mt-4 font-display text-3xl font-bold tracking-[-.035em] sm:text-4xl">Do primeiro clique à conversa comercial.</h2>
+            <p className="mt-4 leading-7 text-[#657087]">O trabalho começa entendendo o negócio, a região e a capacidade de atendimento. Depois, cada etapa é estruturada para fazer sentido junto.</p>
+          </div>
+          <div className="mt-12 grid gap-4 md:grid-cols-4">
+            {[
+              ["01", "Entender", "Oferta, público, região e momento da empresa."],
+              ["02", "Estruturar", "Anúncio, página e caminho de conversão."],
+              ["03", "Acompanhar", "Contato, atendimento e dados disponíveis."],
+              ["04", "Otimizar", "Decisões a partir do que a operação mostra."],
+            ].map(([number, title, text], index) => <article key={number} className="relative rounded-2xl border border-[#e5e9e4] bg-[#fbfcfa] p-5 sm:p-6"><span className={`font-display text-sm font-bold ${index === 3 ? "text-[#08a979]" : "text-[#8b72d6]"}`}>{number}</span><h3 className="mt-5 font-display text-lg font-bold">{title}</h3><p className="mt-2 text-sm leading-6 text-[#697488]">{text}</p>{index < 3 && <ArrowRight className="absolute right-5 top-6 hidden size-4 text-[#b6bdc8] md:block" />}</article>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#f0f3f1] py-20 sm:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 sm:px-8 lg:grid-cols-[.95fr_1.05fr] lg:gap-16 lg:px-10">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Clareza sobre os números</p>
+            <h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] sm:text-4xl">Acompanhar além do clique.</h2>
+            <p className="mt-5 leading-7 text-[#657087]">O que dá para medir depende da estrutura e dos dados que a empresa tem. A proposta é construir visibilidade sobre o caminho: investimento, contatos, qualificação, agendamentos e vendas quando há registro disponível.</p>
+            <p className="mt-4 text-sm leading-6 text-[#778196]">Os indicadores e integrações são definidos conforme o plano e a operação de cada negócio. Este painel ilustra etapas de análise; não apresenta resultados de clientes.</p>
+          </div>
+          <div className="rounded-[1.6rem] border border-[#dfe5e0] bg-white p-5 shadow-[0_18px_55px_rgba(20,35,27,.07)] sm:p-7">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#edf0ed] pb-5">
+              <div><p className="text-xs font-semibold uppercase tracking-[.12em] text-[#7b8799]">Leitura de performance</p><p className="mt-1 font-display text-lg font-bold text-[#10172a]">O que acompanhamos</p></div>
+              <span className="rounded-full bg-[#e9fbf5] px-3 py-1.5 text-xs font-semibold text-[#087d5b]">Exemplo de estrutura</span>
+            </div>
+            <div className="mt-5 grid grid-cols-2 gap-3">
+              {["Investimento", "Cliques", "Contatos", "Qualificados", "Agendamentos", "Vendas registradas"].map((metric, index) => <div key={metric} className="rounded-xl bg-[#f6f8f6] p-3.5"><p className="text-xs text-[#758095]">{metric}</p><div className="mt-3 flex items-end gap-1.5" aria-hidden="true">{Array.from({ length: 6 }, (_, bar) => <span key={bar} className="block w-full rounded-sm bg-[#0ab080]/20" style={{ height: `${12 + ((index * 11 + bar * 7) % 30)}px` }} />)}</div><p className="mt-2 text-[10px] text-[#929bab]">Indicador acompanhado</p></div>)}
+            </div>
+            <div className="mt-4 flex items-start gap-3 rounded-xl border border-[#ece5ff] bg-[#f8f6ff] p-4 text-xs leading-5 text-[#5d5475]"><Sparkles className="mt-0.5 size-4 shrink-0 text-[#7958c7]" /><span>Os dados reais da sua operação entram somente após validação e autorização. Nenhum número fictício é usado como case.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-[#0a1021] py-16 text-white sm:py-20">
+        <div className="mx-auto grid max-w-7xl gap-9 px-5 sm:px-8 lg:grid-cols-[.75fr_1.25fr] lg:items-center lg:px-10">
+          <div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#58dfb7]">Para cada negócio, um contexto</p><h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] sm:text-4xl">Estratégia começa pelas particularidades.</h2><p className="mt-4 leading-7 text-white/60">Uma clínica e um escritório de advocacia não têm a mesma jornada, oferta ou regra de comunicação. A análise considera o que muda em cada operação.</p></div>
+          <div className="grid gap-3 sm:grid-cols-2">
+            {[["Advocacia", "Busca local, área de atuação e comunicação profissional."], ["Estética e saúde", "Procedimentos, agenda e regras específicas de divulgação."], ["Odontologia e medicina", "Especialidades, região e capacidade de atendimento."], ["Outros negócios locais", "Demanda, oferta, sazonalidade e percurso até a venda."]].map(([title, text]) => <div key={title} className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.04] p-4"><MapPin className="mt-0.5 size-4 shrink-0 text-[#58dfb7]" /><div><h3 className="text-sm font-bold">{title}</h3><p className="mt-1 text-xs leading-5 text-white/55">{text}</p></div></div>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-20 sm:py-24">
+        <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-20 lg:px-10">
+          <div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Perguntas frequentes</p><h2 className="mt-4 font-display text-3xl font-bold tracking-[-.035em] sm:text-4xl">Antes de começar a conversa.</h2><p className="mt-4 leading-7 text-[#657087]">Se o seu cenário tiver algum detalhe específico, pode contar no WhatsApp depois de enviar o formulário.</p></div>
+          <div className="divide-y divide-[#e7ebe7] border-y border-[#e7ebe7]">
+            {faqs.map((faq) => <details key={faq.question} className="group py-5"><summary className="flex cursor-pointer list-none items-center justify-between gap-5 font-display text-sm font-bold text-[#202a40] sm:text-base">{faq.question}<ChevronDown className="size-4 shrink-0 text-[#68748a] transition group-open:rotate-180" /></summary><p className="max-w-2xl pt-3 text-sm leading-6 text-[#697488]">{faq.answer}</p></details>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="scroll-mt-8 bg-[#f1f4f1] py-16 sm:py-24" id="contato">
+        <div className="mx-auto grid max-w-7xl items-start gap-10 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:gap-16 lg:px-10">
+          <div className="pt-2">
+            <p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Próximo passo</p>
+            <h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] sm:text-4xl">Vamos entender se faz sentido para o seu negócio?</h2>
+            <p className="mt-5 max-w-lg leading-7 text-[#657087]">Responda três itens rápidos. O WhatsApp abre com uma mensagem pronta, que você pode revisar antes de enviar.</p>
+            <ul className="mt-7 space-y-3 text-sm text-[#4d5a70]">
+              {["Sem apresentação longa", "Sem compromisso de contratação", "A conversa começa pelo seu cenário"].map((item) => <li key={item} className="flex items-center gap-2.5"><Check className="size-4 text-[#08a979]" />{item}</li>)}
+            </ul>
+          </div>
+          <div className="rounded-[1.5rem] border border-[#e3e8e2] bg-white p-5 shadow-[0_20px_60px_rgba(20,35,27,.08)] sm:p-8">
+            <LeadForm />
+          </div>
+        </div>
+      </section>
+
+      <footer className="bg-[#070c18] px-5 py-10 text-white sm:px-8 lg:px-10">
+        <div className="mx-auto flex max-w-7xl flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+          <div><BrandMark /><p className="mt-4 max-w-sm text-sm leading-6 text-white/50">Aquisição, conversão e mensuração para negócios locais.</p></div>
+          <div className="flex flex-wrap gap-x-5 gap-y-3 text-xs text-white/55">
+            <a href="https://ucanmkt.com.br/" className="hover:text-white">Site da U Can</a>
+            <a href="mailto:digital@ucanmkt.com.br" className="hover:text-white">digital@ucanmkt.com.br</a>
+            <a href="https://wa.me/5516996396543" data-location="footer" target="_blank" rel="noopener noreferrer" className="hover:text-white">WhatsApp</a>
+          </div>
+        </div>
+        <div className="mx-auto mt-8 max-w-7xl border-t border-white/10 pt-5 text-xs text-white/35">© 2026 U Can Marketing Digital. Todos os direitos reservados.</div>
+      </footer>
+
+      <a href="#contato" onClick={() => pushEvent("cta_click", { cta_location: "floating_mobile" })} className="fixed inset-x-4 bottom-4 z-30 flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#08a979] px-5 text-sm font-bold text-white shadow-[0_12px_34px_rgba(8,169,121,.36)] sm:hidden">
+        Quero conversar <ArrowRight className="size-4" />
+      </a>
     </main>
   );
 }
