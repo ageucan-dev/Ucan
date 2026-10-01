@@ -1,38 +1,19 @@
-# Conectar o formulário ao Google Sheets
+# Formulário da landing page
 
-O formulário da landing page já está preparado para enviar cada lead, inclusive os parâmetros UTM, para uma planilha do Google Sheets.
+## Fluxo atual
 
-## 1. Criar o destino dos leads
+A página coleta nome, WhatsApp e segmento como campos obrigatórios. Cidade e principal desafio são opcionais. Com consentimento, a pessoa segue para o WhatsApp com uma mensagem preenchida que pode revisar antes de enviar.
 
-1. Crie uma planilha no Google Sheets.
-2. Na planilha, acesse **Extensões > Apps Script**.
-3. Apague o código de exemplo.
-4. Copie todo o conteúdo do arquivo `integrations/google-apps-script.gs` e cole no editor.
-5. Salve o projeto.
+Os eventos de conversão são enviados ao dataLayer/GTM sem nome, telefone ou outros dados pessoais. UTMs e identificadores de clique do Google são registrados no armazenamento local do navegador para apoiar a atribuição.
 
-## 2. Publicar o receptor do formulário
+## Armazenamento dos contatos
 
-1. No Apps Script, clique em **Implantar > Nova implantação**.
-2. Escolha o tipo **App da Web**.
-3. Em **Executar como**, selecione sua própria conta.
-4. Em **Quem pode acessar**, selecione **Qualquer pessoa**.
-5. Autorize a implantação e copie a URL terminada em `/exec`.
+O fluxo atual **não salva automaticamente os dados em Google Sheets, n8n ou CRM**. O arquivo `integrations/google-apps-script.gs` é apenas um exemplo e não está ligado à página. Não configure uma URL no arquivo legado `public/form-config.js` esperando que ela seja usada: esse arquivo não faz parte do fluxo atual.
 
-## 3. Ligar a URL à página
+Se a U Can quiser guardar os leads além do WhatsApp, implemente uma integração apropriada, com consentimento e tratamento de dados definidos, e valide o envio antes de publicar.
 
-Abra o arquivo `form-config.js` do pacote de publicação e cole a URL entre as aspas:
+## Publicação
 
-```js
-window.UCAN_FORM_ENDPOINT = "COLE_AQUI_A_URL_TERMINADA_EM_EXEC";
-```
+A landing é exportada para a pasta `out/` com base em `/estetica-saude/`. Para a configuração atual da Hostinger, publique o conteúdo exportado em `public_html/estetica-saude/`, sem substituir a página principal.
 
-Salve o arquivo. As novas respostas aparecerão automaticamente na aba **Leads** da planilha.
-
-## 4. Publicar sem alterar o site atual
-
-1. No gerenciador de arquivos da hospedagem, abra `public_html`.
-2. Crie a pasta `estetica-saude`.
-3. Extraia dentro dela o conteúdo do pacote da landing page.
-4. Confirme se o arquivo `index.html` ficou diretamente em `public_html/estetica-saude/index.html`.
-
-A página ficará disponível em `https://ucanmkt.com.br/estetica-saude/`, sem substituir os arquivos da página principal.
+Endereço: `https://ucanmkt.com.br/estetica-saude/`
