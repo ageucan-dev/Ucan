@@ -294,34 +294,21 @@ function PipelineVisual() {
   ];
 
   return (
-    <div className="relative mx-auto w-full max-w-[500px]">
-      <div className="absolute -inset-5 rounded-[2rem] bg-gradient-to-br from-[#7045d8]/35 via-transparent to-[#05dba2]/20 blur-2xl" />
-      <div className="relative overflow-hidden rounded-[1.6rem] border border-white/10 bg-[#111a2e] p-5 shadow-[0_32px_90px_rgba(0,0,0,.4)] sm:p-7">
-        <div className="flex items-start justify-between gap-4 border-b border-white/10 pb-5">
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[.18em] text-[#5de0ba]">Sistema de captação</p>
-            <h2 className="mt-2 font-display text-xl font-bold text-white">Cada etapa tem uma função.</h2>
-          </div>
-          <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#142b33] text-[#5de0ba]"><Crosshair className="size-5" /></span>
-        </div>
-        <div className="mt-5 space-y-3">
-          {steps.map(([number, title, subtitle], index) => (
-            <div key={number} className="flex items-center gap-3 rounded-xl border border-white/[0.06] bg-white/[0.035] p-3.5">
-              <span className={`grid size-9 shrink-0 place-items-center rounded-lg text-xs font-bold ${index === 3 ? "bg-[#183c35] text-[#5de0ba]" : "bg-[#25213d] text-[#c5b7ff]"}`}>{number}</span>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold text-white">{title}</p>
-                <p className="mt-0.5 text-xs text-white/55">{subtitle}</p>
-              </div>
-              {index < 3 && <ArrowRight className="size-4 shrink-0 text-white/30" />}
-              {index === 3 && <Check className="size-4 shrink-0 text-[#5de0ba]" />}
+    <div className="mx-auto w-full max-w-[500px] border-l border-white/15 pl-6 sm:pl-9">
+      <p className="text-xs font-semibold uppercase tracking-[.18em] text-[#5de0ba]">Uma operação conectada</p>
+      <h2 className="mt-3 max-w-sm font-display text-2xl font-semibold leading-tight text-white sm:text-3xl">Cada etapa precisa levar à próxima.</h2>
+      <ol className="mt-8">
+        {steps.map(([number, title, subtitle]) => (
+          <li key={number} className="grid grid-cols-[3.25rem_1fr] gap-3 border-t border-white/15 py-4">
+            <span className="font-mono text-xs text-[#5de0ba]">{number}</span>
+            <div>
+              <p className="text-sm font-semibold text-white">{title}</p>
+              <p className="mt-1 text-sm leading-6 text-white/55">{subtitle}</p>
             </div>
-          ))}
-        </div>
-        <div className="mt-5 flex items-center gap-2 rounded-lg bg-[#0b1221] px-3.5 py-3 text-xs leading-5 text-white/55">
-          <ShieldCheck className="size-4 shrink-0 text-[#5de0ba]" />
-          Processo ilustrativo. Os indicadores são definidos conforme a operação.
-        </div>
-      </div>
+          </li>
+        ))}
+      </ol>
+      <p className="mt-4 max-w-sm text-xs leading-5 text-white/45">O percurso é ajustado ao serviço, à região e à forma de atendimento de cada negócio.</p>
     </div>
   );
 }
@@ -359,20 +346,14 @@ export default function Home() {
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_18%_5%,rgba(104,62,205,.27),transparent_37%),radial-gradient(ellipse_at_87%_64%,rgba(0,213,157,.14),transparent_34%)]" />
         <div className="mx-auto grid min-h-[700px] max-w-7xl items-center gap-12 px-5 pb-16 pt-32 sm:px-8 sm:pb-20 sm:pt-36 lg:grid-cols-[1.04fr_.96fr] lg:gap-16 lg:px-10 lg:pt-32">
           <div className="max-w-2xl">
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.045] px-3.5 py-2 text-xs font-semibold tracking-wide text-white/75">
-              <span className="size-2 rounded-full bg-[#25d5a0]" /> Aquisição e performance para negócios locais
-            </p>
+            <p className="text-xs font-semibold uppercase tracking-[.16em] text-[#72dfbf]">Aquisição e performance para negócios locais</p>
             <h1 className="mt-7 font-display text-[2.7rem] font-bold leading-[1.04] tracking-[-.045em] sm:text-6xl lg:text-[4.1rem]">
               Seu próximo cliente pode estar <span className="text-[#4ce0b4]">procurando no Google.</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-7 text-[#bdc5d4] sm:text-lg sm:leading-8">
               A U Can conecta anúncio, página, WhatsApp e mensuração para o seu negócio local transformar procura em conversas comerciais melhor acompanhadas.
             </p>
-            <div className="mt-8 flex flex-wrap gap-2">
-              {["Advocacia", "Estética", "Medicina", "Odontologia", "Negócios locais"].map((item) => (
-                <span key={item} className="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-2 text-xs font-medium text-white/75">{item}</span>
-              ))}
-            </div>
+            <p className="mt-7 border-l-2 border-[#4ce0b4] pl-4 text-sm leading-6 text-white/70">Experiência com advocacia, saúde, serviços e outros negócios locais.</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "hero_primary" })} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-[#08a979] px-6 text-sm font-bold text-white shadow-[0_15px_34px_rgba(8,169,121,.22)] transition hover:-translate-y-0.5 hover:bg-[#078e67]">
                 Quero analisar minha captação <ArrowRight className="size-4" />
@@ -393,7 +374,7 @@ export default function Home() {
               [BarChart3, "Mensuração", "Entender o que acontece depois do clique"],
             ].map(([Icon, title, text]) => {
               const IconComponent = Icon as typeof Search;
-              return <div key={String(title)} className="flex items-center gap-3"><span className="grid size-10 place-items-center rounded-xl bg-white/[0.06] text-[#58dfb7]"><IconComponent className="size-5" /></span><div><p className="text-sm font-bold text-white">{String(title)}</p><p className="mt-0.5 text-xs text-white/50">{String(text)}</p></div></div>;
+              return <div key={String(title)} className="flex items-center gap-3"><span className="grid size-10 place-items-center text-[#58dfb7]"><IconComponent className="size-5" /></span><div><p className="text-sm font-bold text-white">{String(title)}</p><p className="mt-0.5 text-xs text-white/50">{String(text)}</p></div></div>;
             })}
           </div>
         </div>
@@ -416,7 +397,7 @@ export default function Home() {
             [TrendingUp, "A leitura", "Indicadores para identificar avanços e gargalos."],
           ].map(([Icon, title, text]) => {
             const IconComponent = Icon as typeof Target;
-            return <article key={String(title)} className="rounded-2xl border border-[#e4e8e3] bg-white p-5 sm:p-6"><IconComponent className="size-5 text-[#08a979]" /><h3 className="mt-4 font-display text-lg font-bold">{String(title)}</h3><p className="mt-2 text-sm leading-6 text-[#6a7486]">{String(text)}</p></article>;
+            return <article key={String(title)} className="border-t border-[#dfe5df] py-5 sm:py-6"><IconComponent className="size-5 text-[#08a979]" /><h3 className="mt-4 font-display text-lg font-bold">{String(title)}</h3><p className="mt-2 text-sm leading-6 text-[#6a7486]">{String(text)}</p></article>;
           })}
         </div>
       </section>
@@ -434,7 +415,7 @@ export default function Home() {
               ["02", "Estruturar", "Anúncio, página e caminho de conversão."],
               ["03", "Acompanhar", "Contato, atendimento e dados disponíveis."],
               ["04", "Otimizar", "Decisões a partir do que a operação mostra."],
-            ].map(([number, title, text], index) => <article key={number} className="relative rounded-2xl border border-[#e5e9e4] bg-[#fbfcfa] p-5 sm:p-6"><span className={`font-display text-sm font-bold ${index === 3 ? "text-[#08a979]" : "text-[#8b72d6]"}`}>{number}</span><h3 className="mt-5 font-display text-lg font-bold">{title}</h3><p className="mt-2 text-sm leading-6 text-[#697488]">{text}</p>{index < 3 && <ArrowRight className="absolute right-5 top-6 hidden size-4 text-[#b6bdc8] md:block" />}</article>)}
+            ].map(([number, title, text], index) => <article key={number} className="relative border-t-2 border-[#0a1021] pt-4 pb-5 sm:pb-6"><span className={`font-display text-sm font-bold ${index === 3 ? "text-[#08a979]" : "text-[#8b72d6]"}`}>{number}</span><h3 className="mt-5 font-display text-lg font-bold">{title}</h3><p className="mt-2 text-sm leading-6 text-[#697488]">{text}</p>{index < 3 && <ArrowRight className="absolute right-5 top-6 hidden size-4 text-[#b6bdc8] md:block" />}</article>)}
           </div>
         </div>
       </section>
@@ -489,7 +470,7 @@ export default function Home() {
         <div className="mx-auto mt-8 max-w-7xl border-t border-white/10 pt-5 text-xs text-white/35">© 2026 U Can Marketing Digital. Todos os direitos reservados.</div>
       </footer>
 
-      <a href="#contato" onClick={() => pushEvent("cta_click", { cta_location: "floating_mobile" })} className="fixed inset-x-4 bottom-4 z-30 flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#08a979] px-5 text-sm font-bold text-white shadow-[0_12px_34px_rgba(8,169,121,.36)] sm:hidden">
+      <a href="#contato" onClick={() => pushEvent("cta_click", { cta_location: "floating_mobile" })} className="fixed inset-x-4 bottom-4 z-30 flex min-h-12 items-center justify-center gap-2 bg-[#08a979] px-5 text-sm font-bold text-white shadow-lg sm:hidden">
         Quero conversar <ArrowRight className="size-4" />
       </a>
     </main>
