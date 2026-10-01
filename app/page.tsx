@@ -314,8 +314,41 @@ function PipelineVisual() {
 }
 
 function ClientLogos() {
-  const clients = [["G&S Advogados", "g-s-advogados.jpg"], ["Top Locações", "top-locacoes.png"], ["KNN Idiomas", "knn.png"], ["H.C. Diesel by Hiper Center", "hiper-center-hc-diesel.jpeg"], ["Mega Marca", "mega-marca.jpg"], ["CCS Advocacia", "ccs-advocacia.png"]];
-  return <section aria-label="Marcas atendidas em projetos" className="border-b border-[#e8ebe7] bg-[#f7f8f6] px-5 py-10 sm:px-8 sm:py-12 lg:px-10"><div className="mx-auto max-w-7xl"><div className="text-center"><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Experiência em diferentes mercados</p><h2 className="mt-2 font-display text-xl font-bold text-[#273149] sm:text-2xl">Marcas de projetos atendidos pela U Can</h2></div><div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">{clients.map(([name, image]) => <div key={name} className="flex h-[86px] items-center justify-center rounded-xl border border-[#e7ebe6] bg-white p-3"><img src={basePath + "/assets/clients/" + image} alt={name} loading="lazy" className="max-h-full max-w-full object-contain" /></div>)}</div></div></section>;
+  const clients = [
+    ["G&S Advogados", "g-s-advogados.jpg"],
+    ["Top Locações", "top-locacoes.png"],
+    ["KNN Idiomas", "knn.png"],
+    ["H.C. Diesel by Hiper Center", "hiper-center-hc-diesel.jpeg"],
+    ["Mega Marca", "mega-marca.jpg"],
+    ["CCS Advocacia", "ccs-advocacia.png"],
+  ];
+
+  return (
+    <section aria-label="Marcas atendidas em projetos" className="overflow-hidden bg-[#080d18] py-8 text-white sm:py-10">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+        <p className="mb-7 text-center text-[11px] font-medium uppercase tracking-[.2em] text-white/55">Marcas de projetos atendidos pela U Can</p>
+      </div>
+      <div className="client-marquee relative">
+        <div className="client-marquee__track flex w-max items-center">
+          {[0, 1].map((copy) => (
+            <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center gap-12 px-6 sm:gap-20 sm:px-10">
+              {clients.map(([name, image]) => (
+                <div key={name} className="flex h-14 w-36 shrink-0 items-center justify-center sm:w-44">
+                  <img
+                    src={basePath + "/assets/clients/" + image}
+                    alt={copy === 0 ? name : ""}
+                    loading="lazy"
+                    className={"max-h-full max-w-full object-contain " + (image === "top-locacoes.png" || image === "mega-marca.jpg" ? "logo-light-treatment" : "logo-screen-treatment")}
+                  />
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+      <p className="mx-auto mt-6 max-w-7xl px-5 text-center text-[11px] text-white/40 sm:px-8 lg:px-10">Logotipos apresentados como referência de projetos atendidos.</p>
+    </section>
+  );
 }
 
 function ChannelPlatforms() {
