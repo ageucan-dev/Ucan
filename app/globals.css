@@ -269,3 +269,44 @@ main > .ucan-official-header {
     transition-duration: 0.01ms !important;
   }
 }
+
+
+@keyframes ucan-client-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.client-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+
+.client-marquee__track {
+  animation: ucan-client-marquee 42s linear infinite;
+}
+
+.client-marquee:hover .client-marquee__track,
+.client-marquee:focus-within .client-marquee__track {
+  animation-play-state: paused;
+}
+
+.logo-screen-treatment {
+  mix-blend-mode: screen;
+}
+
+.logo-light-treatment {
+  filter: grayscale(1) invert(1);
+  mix-blend-mode: screen;
+}
+
+.logo-ccs-treatment {
+  filter: grayscale(1) invert(1) contrast(1.8);
+  mix-blend-mode: screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .client-marquee__track {
+    animation: none;
+  }
+}
