@@ -1,31 +1,24 @@
-# Landing page U Can — Estética e Saúde
+# Landing page U Can — Negócios Locais
 
-Landing page independente para captação e qualificação de clínicas de estética, odontologia e massoterapia.
+Landing page independente para captação de negócios locais, incluindo advocacia, clínicas de estética, medicina e odontologia.
 
-O projeto fica isolado em `/estetica-saude/` e não altera o site principal da U Can.
+O projeto é publicado em `/estetica-saude/` e não substitui o site principal da U Can.
 
-## Endereço previsto
+## Endereço
 
 `https://ucanmkt.com.br/estetica-saude/`
 
-A exportação usa `basePath` e `assetPrefix` em `/estetica-saude`, permitindo publicar a página em uma subpasta sem alterar o site principal.
+A exportação usa `basePath` e `assetPrefix` em `/estetica-saude`, permitindo publicar em uma subpasta.
 
-## Formulário
+## Conversão e mensuração
 
-O formulário coleta:
+O formulário solicita nome, WhatsApp e segmento. Cidade e principal desafio são opcionais. Após o envio, abre o WhatsApp com uma mensagem preenchida para a pessoa revisar.
 
-- nome;
-- telefone;
-- e-mail;
-- nome da clínica ou empresa;
-- segmento;
-- faixa de seguidores;
-- faixa de faturamento mensal;
-- investimento em publicidade;
-- consentimento para contato;
-- parâmetros UTM da campanha.
+A página envia eventos sem dados pessoais ao dataLayer/GTM, incluindo início e envio do formulário, `generate_lead`, cliques de CTA e `lead_form_whatsapp`. O GTM existente é mantido. UTMs e identificadores de clique são guardados no navegador para atribuição.
 
-O destino é definido em `public/form-config.js`. Consulte `CONFIGURAR-FORMULARIO.md` para conectar uma planilha do Google Sheets por meio do Apps Script disponível em `integrations/google-apps-script.gs`.
+**O formulário atual não grava os contatos em uma planilha ou CRM.** O Apps Script em `integrations/google-apps-script.gs` é um exemplo ainda não conectado ao fluxo atual. A conexão com armazenamento de leads precisa ser implementada e validada separadamente antes de depender dela.
+
+Confira também [CONFIGURAR-FORMULARIO.md](CONFIGURAR-FORMULARIO.md).
 
 ## Desenvolvimento
 
@@ -38,42 +31,27 @@ npm run dev
 
 Acesse `http://localhost:5173/estetica-saude/`.
 
-## Visualizar no GitHub Codespaces
+## GitHub Codespaces
 
-1. No repositório, clique em **Code > Codespaces > Create codespace on main**.
-2. Aguarde a instalação automática das dependências.
-3. No terminal do Codespace, execute:
+1. Clique em **Code > Codespaces > Create codespace on main**.
+2. Aguarde a instalação das dependências.
+3. Execute `npm run dev`.
+4. Abra a porta 5173 e confirme que o caminho termina em `/estetica-saude/`.
 
-```bash
-npm run dev
-```
-
-4. A porta `5173` será encaminhada automaticamente. Abra a prévia e confirme que o endereço termina em `/estetica-saude/`.
-
-Para encerrar o servidor, pressione `Ctrl + C` no terminal.
-
-## Validar antes da publicação
+## Validação e exportação
 
 ```bash
 npm run lint
 npm run test
-```
-
-## Exportação para a Hostinger
-
-```bash
 npx next build
 ```
 
-Os arquivos estáticos serão gerados em `out/`. O conteúdo dessa pasta deve ser publicado diretamente em `public_html/estetica-saude/`.
+Os arquivos estáticos são gerados em `out/`. Publique o conteúdo em `public_html/estetica-saude/`, sem alterar a página principal.
 
-O comando `npm run build` permanece reservado ao ambiente Sites/Vinext do projeto.
+## Arquivos principais
 
-## Estrutura principal
-
-- `app/page.tsx`: conteúdo, formulário e interações da landing page;
-- `app/globals.css`: identidade visual e estilos globais;
-- `public/assets/`: logotipo e imagem principal;
-- `public/form-config.js`: endereço de recebimento dos leads;
-- `integrations/google-apps-script.gs`: integração com o Google Sheets;
-- `CONFIGURAR-FORMULARIO.md`: passo a passo para ativar o formulário.
+- `app/page.tsx`: conteúdo, formulário, eventos e interações.
+- `app/globals.css`: tokens visuais e estilos globais.
+- `app/layout.tsx`: metadados, fontes e GTM.
+- `public/assets/`: logotipo e recursos visuais.
+- `integrations/google-apps-script.gs`: exemplo de receptor do Google Sheets, não conectado ao formulário atual.
