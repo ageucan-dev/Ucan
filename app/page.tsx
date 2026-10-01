@@ -324,7 +324,7 @@ function ClientLogos() {
   ];
 
   return (
-    <section aria-label="Marcas atendidas em projetos" className="overflow-hidden bg-[#080d18] py-8 text-white sm:py-10">
+    <section aria-label="Marcas atendidas em projetos" className="overflow-hidden bg-[#0a1021] py-8 text-white sm:py-10">
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <p className="mb-7 text-center text-[11px] font-medium uppercase tracking-[.2em] text-white/55">Marcas de projetos atendidos pela U Can</p>
       </div>
@@ -338,7 +338,7 @@ function ClientLogos() {
                     src={basePath + "/assets/clients/" + image}
                     alt={copy === 0 ? name : ""}
                     loading="lazy"
-                    className={"max-h-full max-w-full object-contain " + (image === "top-locacoes.png" || image === "mega-marca.jpg" ? "logo-light-treatment" : "logo-screen-treatment")}
+                    className={"max-h-full max-w-full object-contain " + (image === "ccs-advocacia.png" ? "logo-ccs-treatment" : image === "top-locacoes.png" || image === "mega-marca.jpg" ? "logo-light-treatment" : "logo-screen-treatment")}
                   />
                 </div>
               ))}
