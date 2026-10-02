@@ -324,18 +324,24 @@ function ClientLogos() {
   ];
 
   return (
-    <section aria-label="Marcas atendidas em projetos" className="bg-[#0a1021] px-5 py-9 text-white sm:px-8 sm:py-11 lg:px-10">
-      <div className="mx-auto max-w-7xl">
+    <section aria-label="Marcas atendidas em projetos" className="overflow-hidden bg-[#0a1021] py-8 text-white sm:py-10">
+      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <p className="mb-7 text-center text-[11px] font-medium uppercase tracking-[.2em] text-white/55">Marcas de projetos atendidos pela U Can</p>
-        <div className="grid grid-cols-2 items-center justify-items-center gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
-          {clients.map(([name, image]) => (
-            <div key={name} className="flex h-20 w-full items-center justify-center px-2">
-              <img
-                src={basePath + "/assets/clients/" + image}
-                alt={name}
-                loading="lazy"
-                className="max-h-full max-w-[170px] object-contain"
-              />
+      </div>
+      <div className="client-marquee relative">
+        <div className="client-marquee__track flex w-max items-center">
+          {[0, 1].map((copy) => (
+            <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center gap-12 px-6 sm:gap-20 sm:px-10">
+              {clients.map(([name, image]) => (
+                <div key={name} className="flex h-20 w-48 shrink-0 items-center justify-center px-2 sm:w-56">
+                  <img
+                    src={basePath + "/assets/clients/" + image}
+                    alt={copy === 0 ? name : ""}
+                    loading="lazy"
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+              ))}
             </div>
           ))}
         </div>
