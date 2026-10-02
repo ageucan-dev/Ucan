@@ -174,13 +174,23 @@ function LeadForm() {
     pushEvent("lead_form_submit", eventDetails);
     pushEvent("generate_lead", eventDetails);
 
+    const business = segment === "Advocacia"
+      ? "Atuo na advocacia"
+      : segment === "Outro negócio local"
+        ? "Tenho um negócio local"
+        : `Tenho uma ${segment.toLowerCase()}`;
+    const challengeMessage = challenge === "Outro momento"
+      ? "Posso contar mais sobre meu momento por aqui."
+      : challenge
+        ? `${challenge}.`
+        : "";
+
     const message = [
-      `Olá! Sou ${name}.`,
-      `Tenho ${segment}${city ? ` em ${city}` : ""}.`,
-      challenge ? `Hoje, meu principal desafio é: ${challenge.toLowerCase()}.` : "",
-      "Gostaria de conversar sobre uma análise da minha estrutura de captação.",
-      `Meu WhatsApp é ${phone}.`,
-    ].filter(Boolean).join("\\n\\n");
+      `Oi, tudo bem? Sou ${name} e cheguei pelo site da U Can.`,
+      `${business}${city ? ` em ${city}` : ""}.`,
+      challengeMessage,
+      "Queria conversar sobre como melhorar minha captação. Podemos falar por aqui?",
+    ].filter(Boolean).join("\n\n");
 
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
     let redirected = false;
