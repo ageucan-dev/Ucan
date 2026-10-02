@@ -22,17 +22,17 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm run install:ci
-      - name: Build static export
-        run: npm run build
+      - name: Export static site with Next.js
+        run: npx next build
       - name: Inspect export
         run: |
-          echo "Files generated in dist:"
-          find dist -maxdepth 4 -type f -print | sort
-          test -f dist/index.html
+          echo "Files generated in out:"
+          find out -maxdepth 4 -type f -print | sort | head -100
+          test -f out/index.html
       - name: Save static files
         uses: actions/upload-artifact@v4
         with:
           name: ucan-negocios-locais-hostinger
-          path: dist/
+          path: out/
           if-no-files-found: error
           retention-days: 3
