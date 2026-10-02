@@ -338,7 +338,7 @@ function ClientLogos() {
                     src={basePath + "/assets/clients/" + image}
                     alt={copy === 0 ? name : ""}
                     loading="lazy"
-                    className="max-h-full max-w-full object-contain"
+                    className={image === "knn.png" ? "max-h-full max-w-full object-contain" : "client-logo-artwork max-h-full max-w-full object-contain"}
                   />
                 </div>
               ))}
@@ -352,7 +352,7 @@ function ClientLogos() {
 
 function ChannelPlatforms() {
   const channels = [["Google Ads", "google-ads.svg"], ["Meta Ads", "meta-ads.svg"], ["LinkedIn Ads", "linkedin-ads.svg"], ["TikTok Ads", "tiktok-ads.svg"]];
-  return <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Canais de aquisição</p><h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] text-[#10172a] sm:text-4xl">A estratégia começa pelo público e pela intenção.</h2><p className="mt-4 max-w-xl leading-7 text-[#657087]">A plataforma entra depois de entender o objetivo, a região e o comportamento de busca. A execução depende do escopo definido para cada negócio.</p></div><div className="grid grid-cols-2 gap-4 sm:grid-cols-4">{channels.map(([name, image]) => <div key={name} className="flex h-20 items-center justify-center px-2"><img src={basePath + "/assets/channels/" + image} alt={name} loading="lazy" className="max-h-full max-w-[170px] object-contain" /></div>)}</div></div></section>;
+  return <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Canais de aquisição</p><h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] text-[#10172a] sm:text-4xl">A estratégia começa pelo público e pela intenção.</h2><p className="mt-4 max-w-xl leading-7 text-[#657087]">A plataforma entra depois de entender o objetivo, a região e o comportamento de busca. A execução depende do escopo definido para cada negócio.</p></div><div className="grid grid-cols-2 gap-4 sm:grid-cols-4">{channels.map(([name, image]) => <div key={name} className="flex h-20 items-center justify-center px-2"><img src={basePath + "/assets/channels/" + image} alt={name} loading="lazy" className="channel-logo-artwork max-h-full max-w-[170px] object-contain" /></div>)}</div></div></section>;
 }
 
 function HistoricalDashboard() {
