@@ -291,20 +291,6 @@ main > .ucan-official-header {
   animation-play-state: paused;
 }
 
-.logo-screen-treatment {
-  mix-blend-mode: screen;
-}
-
-.logo-light-treatment {
-  filter: grayscale(1) invert(1);
-  mix-blend-mode: screen;
-}
-
-.logo-ccs-treatment {
-  filter: grayscale(1) invert(1) contrast(1.8);
-  mix-blend-mode: screen;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .client-marquee__track {
     animation: none;
