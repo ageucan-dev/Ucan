@@ -50,6 +50,16 @@ function pushEvent(event: string, details: Record<string, unknown> = {}) {
   window.dataLayer.push({ event, ...details });
 }
 
+
+function navigateToSection(event: { preventDefault: () => void }, sectionId: string) {
+  event.preventDefault();
+  const target = document.getElementById(sectionId);
+  if (!target) return;
+
+  window.history.replaceState(null, "", `#${sectionId}`);
+  target.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 function createEventId() {
   if (typeof window !== "undefined" && window.crypto?.randomUUID) {
     return `ucan_lp_${window.crypto.randomUUID()}`;
@@ -275,7 +285,7 @@ const faqs = [
 
 function BrandMark() {
   return (
-    <a href="#topo" className="flex items-center gap-3" aria-label="U Can Marketing Digital">
+    <a href="#topo" onClick={(event) => navigateToSection(event, "topo")} className="flex items-center gap-3" aria-label="U Can Marketing Digital">
       <img src={`${basePath}/assets/ucan-logo-white.png`} alt="" className="size-11 object-contain" />
       <span className="leading-tight">
         <span className="block font-display text-lg font-extrabold tracking-[0.1em] text-white">U CAN</span>
@@ -461,7 +471,7 @@ export default function Home() {
       <header className="absolute inset-x-0 top-0 z-20">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
           <BrandMark />
-          <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "header" })} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 text-sm font-semibold text-white transition hover:bg-white/10 sm:px-5">
+          <a href="#contato" onClick={(event) => { navigateToSection(event, "contato"); pushEvent("cta_click", { cta_location: "header" }); }}} className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 text-sm font-semibold text-white transition hover:bg-white/10 sm:px-5">
             <span className="hidden sm:inline">Entender meu cenário</span><span className="sm:hidden">Falar com a U Can</span><ArrowDownRight className="size-4" />
           </a>
         </div>
@@ -480,10 +490,10 @@ export default function Home() {
             </p>
             <p className="mt-7 border-l-2 border-[#4ce0b4] pl-4 text-sm leading-6 text-white/70">Experiência com advocacia, saúde, serviços e outros negócios locais.</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "hero_primary" })} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-[#08a979] px-6 text-sm font-bold text-white shadow-[0_15px_34px_rgba(8,169,121,.22)] transition hover:-translate-y-0.5 hover:bg-[#078e67]">
+              <a href="#contato" onClick={(event) => { navigateToSection(event, "contato"); pushEvent("cta_click", { cta_location: "hero_primary" }); }}} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl bg-[#08a979] px-6 text-sm font-bold text-white shadow-[0_15px_34px_rgba(8,169,121,.22)] transition hover:-translate-y-0.5 hover:bg-[#078e67]">
                 Quero analisar minha captação <ArrowRight className="size-4" />
               </a>
-              <a href="#como-funciona" onClick={() => pushEvent("cta_click", { cta_location: "hero_secondary" })} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl border border-white/15 px-5 text-sm font-semibold text-white/85 transition hover:bg-white/[0.06]">
+              <a href="#como-funciona" onClick={(event) => { navigateToSection(event, "como-funciona"); pushEvent("cta_click", { cta_location: "hero_secondary" }); }}} className="inline-flex min-h-14 items-center justify-center gap-2 rounded-xl border border-white/15 px-5 text-sm font-semibold text-white/85 transition hover:bg-white/[0.06]">
                 Ver como funciona <ArrowDownRight className="size-4" />
               </a>
             </div>
@@ -512,7 +522,7 @@ export default function Home() {
           <p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">O que muda</p>
           <h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] text-[#10172a] sm:text-4xl">Mais do que colocar anúncios no ar.</h2>
           <p className="mt-5 leading-7 text-[#657087]">Quando anúncio, página e atendimento trabalham separados, fica difícil saber onde os contatos se perdem. A operação precisa olhar o caminho inteiro.</p>
-          <a href="#diagnostico" onClick={() => pushEvent("cta_click", { cta_location: "what_changes" })} className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#087d5b] hover:text-[#055f45]">Vamos conversar sobre esse caminho <ArrowRight className="size-4" /></a>
+          <a href="#contato" onClick={(event) => { navigateToSection(event, "contato"); pushEvent("cta_click", { cta_location: "what_changes" }); }}} className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#087d5b] hover:text-[#055f45]">Vamos conversar sobre esse caminho <ArrowRight className="size-4" /></a>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           {[
@@ -595,7 +605,7 @@ export default function Home() {
         <div className="mx-auto mt-8 max-w-7xl border-t border-white/10 pt-5 text-xs text-white/35">© 2026 U Can Marketing Digital. Todos os direitos reservados.</div>
       </footer>
 
-      <a href="#contato" onClick={() => pushEvent("cta_click", { cta_location: "floating_mobile" })} className="fixed inset-x-4 bottom-4 z-30 flex min-h-12 items-center justify-center gap-2 bg-[#08a979] px-5 text-sm font-bold text-white shadow-lg sm:hidden">
+      <a href="#contato" onClick={(event) => { navigateToSection(event, "contato"); pushEvent("cta_click", { cta_location: "floating_mobile" }); }}} className="fixed inset-x-4 bottom-4 z-30 flex min-h-12 items-center justify-center gap-2 bg-[#08a979] px-5 text-sm font-bold text-white shadow-lg sm:hidden">
         Quero conversar <ArrowRight className="size-4" />
       </a>
     </main>
