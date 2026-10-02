@@ -1,0 +1,33 @@
+name: Build landing page for Hostinger
+
+on:
+  push:
+    branches:
+      - lp-negocios-locais-v2
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out landing page
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.13.0"
+          cache: npm
+      - name: Install locked dependencies
+        run: npm run install:ci
+      - name: Build static export
+        run: npm run build
+      - name: Save static files
+        uses: actions/upload-artifact@v4
+        with:
+          name: ucan-negocios-locais-hostinger
+          path: out/
+          if-no-files-found: error
+          retention-days: 3
