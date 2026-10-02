@@ -25,7 +25,7 @@ declare global {
   }
 }
 
-const basePath = "/estetica-saude";
+const basePath = "/negocios-locais";
 const WHATSAPP_NUMBER = "5516991760422";
 
 const segments = [

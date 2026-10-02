@@ -2,13 +2,13 @@
 
 Landing page independente para captação de negócios locais, incluindo advocacia, clínicas de estética, medicina e odontologia.
 
-O projeto é publicado em `/estetica-saude/` e não substitui o site principal da U Can.
+O projeto é publicado em `/negocios-locais/` e não substitui o site principal da U Can.
 
 ## Endereço
 
-`https://ucanmkt.com.br/estetica-saude/`
+`https://ucanmkt.com.br/negocios-locais/`
 
-A exportação usa `basePath` e `assetPrefix` em `/estetica-saude`, permitindo publicar em uma subpasta.
+A exportação usa `basePath` e `assetPrefix` em `/negocios-locais`, permitindo publicar em uma subpasta.
 
 ## Conversão e mensuração
 
@@ -29,14 +29,14 @@ npm ci
 npm run dev
 ```
 
-Acesse `http://localhost:5173/estetica-saude/`.
+Acesse `http://localhost:5173/negocios-locais/`.
 
 ## GitHub Codespaces
 
 1. Clique em **Code > Codespaces > Create codespace on main**.
 2. Aguarde a instalação das dependências.
 3. Execute `npm run dev`.
-4. Abra a porta 5173 e confirme que o caminho termina em `/estetica-saude/`.
+4. Abra a porta 5173 e confirme que o caminho termina em `/negocios-locais/`.
 
 ## Validação e exportação
 
@@ -46,7 +46,7 @@ npm run test
 npx next build
 ```
 
-Os arquivos estáticos são gerados em `out/`. Publique o conteúdo em `public_html/estetica-saude/`, sem alterar a página principal.
+Os arquivos estáticos são gerados em `out/`. Publique o conteúdo em `public_html/negocios-locais/`, sem alterar a página principal.
 
 ## Arquivos principais
 

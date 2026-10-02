@@ -7,8 +7,8 @@ export const metadata: Metadata = {
   description:
     "A U Can conecta anúncios, páginas, WhatsApp e mensuração para negócios locais. Converse com a equipe sobre a estrutura de captação da sua empresa.",
   icons: {
-    icon: "/estetica-saude/assets/ucan-logo-white.png",
-    shortcut: "/estetica-saude/assets/ucan-logo-white.png",
+    icon: "/negocios-locais/assets/ucan-logo-white.png",
+    shortcut: "/negocios-locais/assets/ucan-logo-white.png",
   },
   openGraph: {
     title: "Captação para Negócios Locais | U Can",
