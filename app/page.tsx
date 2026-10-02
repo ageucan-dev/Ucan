@@ -483,10 +483,10 @@ export default function Home() {
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[.16em] text-[#72dfbf]">Aquisição e performance para negócios locais</p>
             <h1 className="mt-7 font-display text-[2.7rem] font-bold leading-[1.04] tracking-[-.045em] sm:text-6xl lg:text-[4.1rem]">
-              Seu próximo cliente pode estar <span className="text-[#4ce0b4]">procurando no Google.</span>
+              <span>O cliente ideal te procura na Internet</span>
             </h1>
             <p className="mt-6 max-w-xl text-base leading-7 text-[#bdc5d4] sm:text-lg sm:leading-8">
-              A U Can conecta anúncio, página, WhatsApp e mensuração para o seu negócio local transformar procura em conversas comerciais melhor acompanhadas.
+              A U Can conecta anúncio, página, WhatsApp e Dados para o seu negócio local transformar procura em conversas comerciais em vendas e retornos precisáveis.
             </p>
             <p className="mt-7 border-l-2 border-[#4ce0b4] pl-4 text-sm leading-6 text-white/70">Experiência com advocacia, saúde, serviços e outros negócios locais.</p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
