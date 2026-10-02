@@ -333,8 +333,8 @@ function ClientLogos() {
           {[0, 1].map((copy) => (
             <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center gap-12 px-6 sm:gap-20 sm:px-10">
               {clients.map(([name, image]) => (
-                <div key={name} className="flex h-14 w-36 shrink-0 items-center justify-center sm:w-44">
-                  <img src={basePath + "/assets/clients/" + image} alt={copy === 0 ? name : ""} loading="lazy" className="max-h-full max-w-full object-contain" />
+                <div key={name} className="flex h-16 w-36 shrink-0 items-center justify-center overflow-hidden sm:w-40">
+                  <img src={basePath + "/assets/clients/" + image} alt={copy === 0 ? name : ""} loading="lazy" className="h-full w-full object-cover object-center" />
                 </div>
               ))}
             </div>
@@ -348,7 +348,7 @@ function ClientLogos() {
 
 function ChannelPlatforms() {
   const channels = [["Google Ads", "google-ads.svg"], ["Meta Ads", "meta-ads.svg"], ["LinkedIn Ads", "linkedin-ads.svg"], ["TikTok Ads", "tiktok-ads.svg"]];
-  return <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Canais de aquisição</p><h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] text-[#10172a] sm:text-4xl">A estratégia começa pelo público e pela intenção.</h2><p className="mt-4 max-w-xl leading-7 text-[#657087]">A plataforma entra depois de entender o objetivo, a região e o comportamento de busca. A execução depende do escopo definido para cada negócio.</p></div><div className="grid grid-cols-2 gap-3 sm:grid-cols-4">{channels.map(([name, image]) => <div key={name} className="flex h-[90px] items-center justify-center rounded-xl border border-[#e5e9e4] bg-[#fbfcfa] p-3"><img src={basePath + "/assets/channels/" + image} alt={name} loading="lazy" className="max-h-full max-w-full object-contain" /></div>)}</div></div></section>;
+  return <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Canais de aquisição</p><h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] text-[#10172a] sm:text-4xl">A estratégia começa pelo público e pela intenção.</h2><p className="mt-4 max-w-xl leading-7 text-[#657087]">A plataforma entra depois de entender o objetivo, a região e o comportamento de busca. A execução depende do escopo definido para cada negócio.</p></div><div className="grid grid-cols-2 gap-3 sm:grid-cols-4">{channels.map(([name, image]) => <div key={name} className="flex h-[90px] items-center justify-center rounded-xl border border-[#e5e9e4] bg-[#fbfcfa] p-3"><div className="h-16 w-full max-w-[170px] overflow-hidden aspect-[2.5/1]"><img src={basePath + "/assets/channels/" + image} alt={name} loading="lazy" className="h-full w-full object-cover object-center" /></div></div>)}</div></div></section>;
 }
 
 function HistoricalDashboard() {
