@@ -464,6 +464,49 @@ function HistoricalDashboard() {
   );
 }
 
+function ProcessStepCard({
+  number,
+  title,
+  summary,
+  detail,
+  index,
+}: {
+  number: string;
+  title: string;
+  summary: string;
+  detail: string;
+  index: number;
+}) {
+  const [isOpen, setIsOpen] = useState(false);
+  const detailId = `process-step-${number}`;
+
+  return (
+    <article className="relative border-t-2 border-[#0a1021] pt-4 pb-5 sm:pb-6">
+      {index < 3 && <ArrowRight aria-hidden="true" className="absolute right-5 top-6 hidden size-4 text-[#b6bdc8] md:block" />}
+      <button
+        type="button"
+        aria-expanded={isOpen}
+        aria-controls={detailId}
+        onClick={() => setIsOpen((open) => !open)}
+        className="group block w-full cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#08a979]"
+      >
+        <span className={`font-display text-sm font-bold ${index === 3 ? "text-[#08a979]" : "text-[#8b72d6]"}`}>{number}</span>
+        <span className="mt-5 flex items-center justify-between gap-3 pr-8">
+          <span className="font-display text-lg font-bold text-[#10172a]">{title}</span>
+          <ChevronDown aria-hidden="true" className={`size-4 shrink-0 text-[#758196] transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
+        </span>
+        <span className="mt-2 block text-sm leading-6 text-[#697488]">{summary}</span>
+        <span className="mt-3 block text-xs font-semibold text-[#087d5b]">{isOpen ? "Fechar resumo" : "Clique para saber mais"}</span>
+      </button>
+      {isOpen && (
+        <div id={detailId} role="region" aria-label={`Resumo: ${title}`} className="mt-3 border-l-2 border-[#08a979] pl-3 text-sm leading-6 text-[#4f5c70]">
+          {detail}
+        </div>
+      )}
+    </article>
+  );
+}
+
 export default function Home() {
   return (
     <main id="topo" className="min-h-screen bg-[#f7f8f6] font-sans text-[#10172a]">
@@ -544,13 +587,33 @@ export default function Home() {
             <h2 className="mt-4 font-display text-3xl font-bold tracking-[-.035em] sm:text-4xl">Do primeiro clique à conversa comercial.</h2>
             <p className="mt-4 leading-7 text-[#657087]">O trabalho começa entendendo o negócio, a região e a capacidade de atendimento. Depois, cada etapa é estruturada para fazer sentido junto.</p>
           </div>
-          <div className="mt-12 grid gap-4 md:grid-cols-4">
+          <div className="mt-12 grid gap-x-6 gap-y-5 md:grid-cols-4">
             {[
-              ["01", "Entender", "Oferta, público, região e momento da empresa."],
-              ["02", "Estruturar", "Anúncio, página e caminho de conversão."],
-              ["03", "Acompanhar", "Contato, atendimento e dados disponíveis."],
-              ["04", "Otimizar", "Decisões a partir do que a operação mostra."],
-            ].map(([number, title, text], index) => <article key={number} className="relative border-t-2 border-[#0a1021] pt-4 pb-5 sm:pb-6"><span className={`font-display text-sm font-bold ${index === 3 ? "text-[#08a979]" : "text-[#8b72d6]"}`}>{number}</span><h3 className="mt-5 font-display text-lg font-bold">{title}</h3><p className="mt-2 text-sm leading-6 text-[#697488]">{text}</p>{index < 3 && <ArrowRight className="absolute right-5 top-6 hidden size-4 text-[#b6bdc8] md:block" />}</article>)}
+              {
+                number: "01",
+                title: "Entender",
+                summary: "Oferta, público, região e momento da empresa.",
+                detail: "Mapeamos o que sua empresa oferece, quem deseja atrair, onde atende e como funciona o atendimento hoje. Isso ajuda a definir prioridades antes de investir em mídia.",
+              },
+              {
+                number: "02",
+                title: "Estruturar",
+                summary: "Anúncio, página e caminho de conversão.",
+                detail: "Organizamos a mensagem, o canal e o próximo passo. Quando fizer parte do escopo, preparamos a página e os pontos de contato para que anúncio e atendimento sigam a mesma direção.",
+              },
+              {
+                number: "03",
+                title: "Acompanhar",
+                summary: "Contato, atendimento e dados disponíveis.",
+                detail: "Acompanhamos os indicadores que foram configurados e observamos como os contatos avançam. Assim fica mais fácil identificar etapas que precisam de atenção.",
+              },
+              {
+                number: "04",
+                title: "Otimizar",
+                summary: "Decisões a partir do que a operação mostra.",
+                detail: "Usamos os dados disponíveis para orientar ajustes em campanhas, páginas e processos de contato. As mudanças são feitas conforme o cenário e os sinais observados.",
+              },
+            ].map((step, index) => <ProcessStepCard key={step.number} {...step} index={index} />)}
           </div>
         </div>
       </section>
