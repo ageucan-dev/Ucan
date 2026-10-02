@@ -423,7 +423,6 @@ function HistoricalDashboard() {
               <article key={metric.label} className={"min-h-[132px] border border-[#dfe4ea] border-t-[3px] bg-white p-4 shadow-[0_2px_8px_rgba(24,39,58,.04)] " + metric.accent}>
                 <p className="text-xs font-medium leading-5 text-[#5d687a]">{metric.label}</p>
                 <p className={"mt-3 font-display text-2xl font-semibold tracking-tight sm:text-[1.75rem] " + metric.tone}>{metric.value}</p>
-                <p className="mt-2 text-[11px] leading-4 text-[#8490a0]">{metric.note}</p>
               </article>
             ))}
           </div>
