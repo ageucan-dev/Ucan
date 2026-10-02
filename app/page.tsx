@@ -465,24 +465,19 @@ function HistoricalDashboard() {
 }
 
 function ProcessStepCard({
-  number,
   title,
   summary,
   detail,
-  index,
 }: {
-  number: string;
   title: string;
   summary: string;
   detail: string;
-  index: number;
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const detailId = `process-step-${number}`;
+  const detailId = `process-step-${title.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
 
   return (
     <article className="relative border-t-2 border-[#0a1021] pt-4 pb-5 sm:pb-6">
-      {index < 3 && <ArrowRight aria-hidden="true" className="absolute right-5 top-6 hidden size-4 text-[#b6bdc8] md:block" />}
       <button
         type="button"
         aria-expanded={isOpen}
@@ -490,8 +485,7 @@ function ProcessStepCard({
         onClick={() => setIsOpen((open) => !open)}
         className="group block w-full cursor-pointer text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#08a979]"
       >
-        <span className={`font-display text-sm font-bold ${index === 3 ? "text-[#08a979]" : "text-[#8b72d6]"}`}>{number}</span>
-        <span className="mt-5 flex items-center justify-between gap-3 pr-8">
+        <span className="mt-1 flex items-center justify-between gap-3 pr-8">
           <span className="font-display text-lg font-bold text-[#10172a]">{title}</span>
           <ChevronDown aria-hidden="true" className={`size-4 shrink-0 text-[#758196] transition-transform duration-200 ${isOpen ? "rotate-180" : ""}`} />
         </span>
@@ -590,30 +584,26 @@ export default function Home() {
           <div className="mt-12 grid gap-x-6 gap-y-5 md:grid-cols-4">
             {[
               {
-                number: "01",
                 title: "Entender",
                 summary: "Oferta, público, região e momento da empresa.",
                 detail: "Mapeamos o que sua empresa oferece, quem deseja atrair, onde atende e como funciona o atendimento hoje. Isso ajuda a definir prioridades antes de investir em mídia.",
               },
               {
-                number: "02",
                 title: "Estruturar",
                 summary: "Anúncio, página e caminho de conversão.",
                 detail: "Organizamos a mensagem, o canal e o próximo passo. Quando fizer parte do escopo, preparamos a página e os pontos de contato para que anúncio e atendimento sigam a mesma direção.",
               },
               {
-                number: "03",
                 title: "Acompanhar",
                 summary: "Contato, atendimento e dados disponíveis.",
                 detail: "Acompanhamos os indicadores que foram configurados e observamos como os contatos avançam. Assim fica mais fácil identificar etapas que precisam de atenção.",
               },
               {
-                number: "04",
                 title: "Otimizar",
                 summary: "Decisões a partir do que a operação mostra.",
                 detail: "Usamos os dados disponíveis para orientar ajustes em campanhas, páginas e processos de contato. As mudanças são feitas conforme o cenário e os sinais observados.",
               },
-            ].map((step, index) => <ProcessStepCard key={step.number} {...step} index={index} />)}
+            ].map((step) => <ProcessStepCard key={step.title} {...step} />)}
           </div>
         </div>
       </section>
