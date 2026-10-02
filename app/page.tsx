@@ -300,7 +300,7 @@ function PipelineVisual() {
     ["01", "Busca com intenção", "A pessoa procura uma solução"],
     ["02", "Página que orienta", "Oferta clara e próximo passo"],
     ["03", "Conversa no WhatsApp", "Contato com contexto"],
-    ["04", "Mensuração", "Leitura para otimizar"],
+    ["04", "Dados & Atendimento", "leitura de resultados para melhorar"],
   ];
 
   return (
