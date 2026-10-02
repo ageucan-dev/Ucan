@@ -324,37 +324,128 @@ function ClientLogos() {
   ];
 
   return (
-    <section aria-label="Marcas atendidas em projetos" className="overflow-hidden bg-[#0a1021] py-8 text-white sm:py-10">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
+    <section aria-label="Marcas atendidas em projetos" className="bg-[#0a1021] px-5 py-9 text-white sm:px-8 sm:py-11 lg:px-10">
+      <div className="mx-auto max-w-7xl">
         <p className="mb-7 text-center text-[11px] font-medium uppercase tracking-[.2em] text-white/55">Marcas de projetos atendidos pela U Can</p>
-      </div>
-      <div className="client-marquee relative">
-        <div className="client-marquee__track flex w-max items-center">
-          {[0, 1].map((copy) => (
-            <div key={copy} aria-hidden={copy === 1} className="flex shrink-0 items-center gap-12 px-6 sm:gap-20 sm:px-10">
-              {clients.map(([name, image]) => (
-                <div key={name} className="flex h-16 w-36 shrink-0 items-center justify-center overflow-hidden sm:w-40">
-                  <img src={basePath + "/assets/clients/" + image} alt={copy === 0 ? name : ""} loading="lazy" className="h-full w-full object-cover object-center" />
-                </div>
-              ))}
+        <div className="grid grid-cols-2 items-center justify-items-center gap-x-5 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
+          {clients.map(([name, image]) => (
+            <div key={name} className="flex h-20 w-full items-center justify-center px-2">
+              <img
+                src={basePath + "/assets/clients/" + image}
+                alt={name}
+                loading="lazy"
+                className="max-h-full max-w-[170px] object-contain"
+              />
             </div>
           ))}
         </div>
       </div>
-      <p className="mx-auto mt-6 max-w-7xl px-5 text-center text-[11px] text-white/40 sm:px-8 lg:px-10">Logotipos apresentados como referência de projetos atendidos.</p>
     </section>
   );
 }
 
 function ChannelPlatforms() {
   const channels = [["Google Ads", "google-ads.svg"], ["Meta Ads", "meta-ads.svg"], ["LinkedIn Ads", "linkedin-ads.svg"], ["TikTok Ads", "tiktok-ads.svg"]];
-  return <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Canais de aquisição</p><h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] text-[#10172a] sm:text-4xl">A estratégia começa pelo público e pela intenção.</h2><p className="mt-4 max-w-xl leading-7 text-[#657087]">A plataforma entra depois de entender o objetivo, a região e o comportamento de busca. A execução depende do escopo definido para cada negócio.</p></div><div className="grid grid-cols-2 gap-3 sm:grid-cols-4">{channels.map(([name, image]) => <div key={name} className="flex h-[90px] items-center justify-center rounded-xl border border-[#e5e9e4] bg-[#fbfcfa] p-3"><div className="h-16 w-full max-w-[170px] overflow-hidden aspect-[2.5/1]"><img src={basePath + "/assets/channels/" + image} alt={name} loading="lazy" className="h-full w-full object-cover object-center" /></div></div>)}</div></div></section>;
+  return <section className="bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-10"><div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[.8fr_1.2fr] lg:items-center"><div><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Canais de aquisição</p><h2 className="mt-4 font-display text-3xl font-bold leading-tight tracking-[-.035em] text-[#10172a] sm:text-4xl">A estratégia começa pelo público e pela intenção.</h2><p className="mt-4 max-w-xl leading-7 text-[#657087]">A plataforma entra depois de entender o objetivo, a região e o comportamento de busca. A execução depende do escopo definido para cada negócio.</p></div><div className="grid grid-cols-2 gap-4 sm:grid-cols-4">{channels.map(([name, image]) => <div key={name} className="flex h-20 items-center justify-center px-2"><img src={basePath + "/assets/channels/" + image} alt={name} loading="lazy" className="max-h-full max-w-[170px] object-contain" /></div>)}</div></div></section>;
 }
 
 function HistoricalDashboard() {
-  const metrics = [["R$ 10 mi+", "Investimento em anúncios informado"], ["520.833", "Contatos gerados"], ["8,7", "Retorno médio sobre investimento informado"], ["R$ 6.578", "Investimento médio por cliente informado"]];
-  const charts = [{ title: "Investimento em anúncios", value: "R$ 10 mi+", label: "registrado nos dados informados", height: "72%" }, { title: "Contatos gerados", value: "520.833", label: "contatos informados", height: "82%" }];
-  return <section className="bg-[#f0f3f1] px-5 py-20 sm:px-8 sm:py-24 lg:px-10"><div className="mx-auto max-w-7xl"><div className="mx-auto max-w-3xl text-center"><p className="text-xs font-bold uppercase tracking-[.16em] text-[#078e67]">Histórico de operação</p><h2 className="mt-4 font-display text-3xl font-bold tracking-[-.035em] text-[#10172a] sm:text-4xl">Números que ajudam a entender a experiência.</h2><p className="mt-4 leading-7 text-[#657087]">Indicadores históricos informados pela U Can, apresentados como referência do trabalho realizado.</p></div><div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">{metrics.map(([value, label], index) => <article key={label} className="rounded-2xl border border-[#dfe5e0] bg-white p-5 shadow-[0_8px_24px_rgba(20,35,27,.04)]"><p className={"font-display text-3xl font-bold tracking-tight " + (index % 2 === 0 ? "text-[#087d5b]" : "text-[#5940a8]")}>{value}</p><p className="mt-2 text-sm leading-5 text-[#68748a]">{label}</p></article>)}</div><div className="mt-5 rounded-[1.5rem] border border-[#dce3de] bg-[#10182a] p-5 text-white shadow-[0_20px_60px_rgba(20,35,27,.12)] sm:p-8"><div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"><div><p className="text-xs font-bold uppercase tracking-[.15em] text-[#65dfba]">Visão de dashboard</p><h3 className="mt-2 font-display text-xl font-bold sm:text-2xl">Totais históricos disponíveis</h3></div><p className="text-xs text-white/50">Colunas agregadas · escalas próprias · sem divisão temporal</p></div><div className="mt-7 grid gap-4 lg:grid-cols-2">{charts.map((chart, index) => <div key={chart.title} className="rounded-xl border border-white/10 bg-[#0b1221] p-4 sm:p-5"><div className="flex items-start justify-between gap-3"><div><p className="text-sm font-semibold text-white/80">{chart.title}</p><p className="mt-1 text-xs text-white/45">{chart.label}</p></div><span className={"rounded-lg px-3 py-1.5 font-display text-sm font-bold " + (index === 0 ? "bg-[#12392f] text-[#65dfba]" : "bg-[#28213f] text-[#c9baff]")}>{chart.value}</span></div><div className="relative mt-5 h-36 overflow-hidden rounded-lg" role="img" aria-label={chart.title + ": " + chart.value + "; total agregado, sem série temporal"}><div className="absolute inset-0 flex flex-col justify-between" aria-hidden="true">{[0,1,2,3,4].map((line) => <span key={line} className="block border-t border-white/[0.09]" />)}</div><div className="absolute inset-x-0 bottom-0 flex h-full items-end justify-center"><div className={"relative w-[18%] min-w-12 overflow-hidden rounded-t-md border border-white/20 " + (index === 0 ? "bg-gradient-to-t from-[#08a979]/40 to-[#49dfb2]/70" : "bg-gradient-to-t from-[#7555cb]/40 to-[#b197ff]/70")} style={{ height: chart.height }}><div className="absolute inset-0 bg-white/10" /><div className="absolute inset-y-0 left-1/3 w-px bg-white/15" /></div></div><div className="absolute inset-x-2 bottom-1 flex justify-center"><span className="rounded-full bg-[#10182a]/90 px-2.5 py-1 text-[10px] font-medium text-white/45">Total agregado</span></div></div></div>)}</div><p className="mt-5 rounded-xl border border-[#f5d98a]/20 bg-[#f5d98a]/[0.07] p-4 text-xs leading-5 text-white/65">Transparência: os números foram informados pela U Can, mas o investimento histórico não está totalmente mensurado. O painel mostra totais agregados disponíveis, não uma série completa; cada coluna tem escala própria e não deve ser comparada à outra. Períodos, atribuição e método de cálculo do retorno e do investimento médio por cliente ainda devem ser confirmados antes de usar esses indicadores como comparação entre períodos.</p></div></div></section>;
+  const metrics = [
+    { value: "R$ 10 mi+", label: "Investimento em anúncios", note: "mensuração histórica parcial", tone: "text-[#147d64]", accent: "border-t-[#18a87b]" },
+    { value: "520.833", label: "Contatos gerados", note: "total histórico informado", tone: "text-[#4f46a5]", accent: "border-t-[#7568d8]" },
+    { value: "8,7", label: "Retorno médio sobre investimento", note: "valor informado pela U Can", tone: "text-[#a34c19]", accent: "border-t-[#e48a45]" },
+    { value: "R$ 6.578", label: "Investimento médio por cliente", note: "média informada pela U Can", tone: "text-[#1769a1]", accent: "border-t-[#4a9bd1]" },
+  ];
+
+  const charts = [
+    {
+      title: "Investimento em anúncios",
+      value: "R$ 10 mi+",
+      labels: ["R$ 10 mi+", "R$ 7,5 mi", "R$ 5 mi", "R$ 2,5 mi", "R$ 0"],
+      height: "96%",
+      color: "from-[#16a77a]/45 to-[#55d7ad]/85",
+      summary: "Total informado · histórico parcial",
+    },
+    {
+      title: "Contatos gerados",
+      value: "520.833",
+      labels: ["600 mil", "450 mil", "300 mil", "150 mil", "0"],
+      height: "87%",
+      color: "from-[#6c5dd3]/45 to-[#a497ff]/85",
+      summary: "Total acumulado informado",
+    },
+  ];
+
+  return (
+    <section className="bg-[#edf1f4] px-4 py-16 sm:px-8 sm:py-20 lg:px-10">
+      <div className="mx-auto max-w-7xl overflow-hidden border border-[#d8dee7] bg-[#f7f9fb] shadow-[0_16px_50px_rgba(23,36,55,.08)]">
+        <header className="flex flex-col gap-4 bg-[#111a2b] px-5 py-5 text-white sm:flex-row sm:items-center sm:justify-between sm:px-7">
+          <div className="flex items-center gap-3">
+            <img src={basePath + "/assets/ucan-logo-white.png"} alt="" className="size-9 object-contain" />
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[.18em] text-white/55">U Can · relatório de performance</p>
+              <h2 className="mt-1 font-display text-lg font-semibold sm:text-xl">Visão histórica consolidada</h2>
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 text-[11px] font-medium text-white/75">
+            <span className="border border-white/15 px-3 py-2">Período · histórico disponível</span>
+            <span className="border border-white/15 px-3 py-2">Dados agregados</span>
+          </div>
+        </header>
+
+        <div className="px-4 py-5 sm:px-7 sm:py-7">
+          <div className="mb-4 flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[.16em] text-[#657087]">Indicadores principais</p>
+              <h3 className="mt-1 font-display text-xl font-semibold tracking-tight text-[#19243a]">Aquisição e resultado</h3>
+            </div>
+            <p className="text-xs text-[#738095]">Os valores refletem os dados históricos disponíveis.</p>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            {metrics.map((metric) => (
+              <article key={metric.label} className={"min-h-[132px] border border-[#dfe4ea] border-t-[3px] bg-white p-4 shadow-[0_2px_8px_rgba(24,39,58,.04)] " + metric.accent}>
+                <p className="text-xs font-medium leading-5 text-[#5d687a]">{metric.label}</p>
+                <p className={"mt-3 font-display text-2xl font-semibold tracking-tight sm:text-[1.75rem] " + metric.tone}>{metric.value}</p>
+                <p className="mt-2 text-[11px] leading-4 text-[#8490a0]">{metric.note}</p>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-4 flex flex-col gap-3 lg:grid lg:grid-cols-2">
+            {charts.map((chart, index) => (
+              <article key={chart.title} className="border border-[#dfe4ea] bg-white p-4 sm:p-5">
+                <div className="flex items-start justify-between gap-3 border-b border-[#edf0f3] pb-3">
+                  <div>
+                    <h4 className="text-sm font-semibold text-[#253148]">{chart.title}</h4>
+                    <p className="mt-1 text-[11px] text-[#7a8596]">{chart.summary}</p>
+                  </div>
+                  <span className="font-display text-sm font-semibold text-[#253148]">{chart.value}</span>
+                </div>
+                <div className="mt-4 grid grid-cols-[58px_1fr] gap-2">
+                  <div className="flex h-44 flex-col justify-between pb-5 text-right text-[10px] tabular-nums text-[#8a95a4]" aria-hidden="true">
+                    {chart.labels.map((label) => <span key={label}>{label}</span>)}
+                  </div>
+                  <div className="relative h-44">
+                    <div className="absolute inset-x-0 top-0 bottom-5 flex flex-col justify-between" aria-hidden="true">
+                      {[0, 1, 2, 3, 4].map((line) => <span key={line} className="border-t border-[#e6eaf0]" />)}
+                    </div>
+                    <div className="absolute inset-x-0 bottom-5 top-0 flex items-end justify-center">
+                      <div className={"relative w-[22%] min-w-12 overflow-hidden border border-white/70 bg-gradient-to-t " + chart.color} style={{ height: chart.height }}>
+                        <div className="absolute inset-0 bg-white/10" />
+                        <div className="absolute inset-y-0 left-1/3 w-px bg-white/25" />
+                      </div>
+                    </div>
+                    <p className="absolute inset-x-0 bottom-0 text-center text-[10px] font-medium text-[#7b8797]">{index === 0 ? "Investimento consolidado" : "Contatos acumulados"}</p>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }
 
 export default function Home() {

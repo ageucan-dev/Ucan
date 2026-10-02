@@ -61,12 +61,12 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  overflow-x: clip;
+  scroll-behavior: auto;
 }
 
 body {
   margin: 0;
-  overflow-x: hidden;
   background: var(--background);
   color: var(--foreground);
   font-family: "Inter", Arial, Helvetica, sans-serif;
@@ -267,32 +267,5 @@ main > .ucan-official-header {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
-  }
-}
-
-
-@keyframes ucan-client-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
-.client-marquee {
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
-}
-
-.client-marquee__track {
-  animation: ucan-client-marquee 42s linear infinite;
-}
-
-.client-marquee:hover .client-marquee__track,
-.client-marquee:focus-within .client-marquee__track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .client-marquee__track {
-    animation: none;
   }
 }
