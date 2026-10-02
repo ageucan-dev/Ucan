@@ -367,10 +367,10 @@ function ChannelPlatforms() {
 
 function HistoricalDashboard() {
   const metrics = [
-    { value: "R$ 10 mi+", label: "Investimento em anúncios", note: "mensuração histórica parcial", tone: "text-[#147d64]", accent: "border-t-[#18a87b]" },
-    { value: "520.833", label: "Contatos gerados", note: "total histórico informado", tone: "text-[#4f46a5]", accent: "border-t-[#7568d8]" },
-    { value: "8,7", label: "Retorno médio sobre investimento", note: "valor informado pela U Can", tone: "text-[#a34c19]", accent: "border-t-[#e48a45]" },
-    { value: "R$ 6.578", label: "Investimento médio por cliente", note: "média informada pela U Can", tone: "text-[#1769a1]", accent: "border-t-[#4a9bd1]" },
+    { value: "R$ 10 mi+", label: "Investimento em anúncios", tone: "text-[#147d64]", accent: "border-t-[#18a87b]" },
+    { value: "520.833", label: "Contatos gerados", tone: "text-[#4f46a5]", accent: "border-t-[#7568d8]" },
+    { value: "8,7", label: "Retorno médio sobre investimento", tone: "text-[#a34c19]", accent: "border-t-[#e48a45]" },
+    { value: "R$ 6.578", label: "Investimento médio por cliente", tone: "text-[#1769a1]", accent: "border-t-[#4a9bd1]" },
   ];
 
   const charts = [
