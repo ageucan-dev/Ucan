@@ -38,15 +38,17 @@ Acesse `http://localhost:5173/negocios-locais/`.
 3. Execute `npm run dev`.
 4. Abra a porta 5173 e confirme que o caminho termina em `/negocios-locais/`.
 
-## Validação e exportação
+## Exportação para Hostinger
+
+No Codespace, atualize a branch `lp-negocios-locais-v2` e execute:
 
 ```bash
-npm run lint
-npm run test
-npx next build
+npm run build
 ```
 
-Os arquivos estáticos são gerados em `out/`. Publique o conteúdo em `public_html/negocios-locais/`, sem alterar a página principal.
+A exportação estática deve gerar os arquivos em `out/`. No Gerenciador de Arquivos da Hostinger, crie `public_html/negocios-locais/` e envie para essa pasta o conteúdo de `out/` (os arquivos e pastas de dentro, não a pasta `out` inteira). Não altere o conteúdo de `public_html/` na raiz do domínio, que atende o site oficial.
+
+Depois, confirme que `https://ucanmkt.com.br/negocios-locais/` abre e que imagens e estilos carregam corretamente.
 
 ## Arquivos principais
 

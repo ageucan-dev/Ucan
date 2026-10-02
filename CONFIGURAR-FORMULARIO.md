@@ -14,6 +14,6 @@ Se a U Can quiser guardar os leads além do WhatsApp, implemente uma integraçã
 
 ## Publicação
 
-A landing é exportada para a pasta `out/` com base em `/estetica-saude/`. Para a configuração atual da Hostinger, publique o conteúdo exportado em `public_html/estetica-saude/`, sem substituir a página principal.
+A landing é exportada para a pasta `out/` com base em `/negocios-locais/`. Para a configuração atual da Hostinger, publique o conteúdo exportado em `public_html/negocios-locais/`, sem substituir a página principal.
 
-Endereço: `https://ucanmkt.com.br/estetica-saude/`
+Endereço: `https://ucanmkt.com.br/negocios-locais/`
